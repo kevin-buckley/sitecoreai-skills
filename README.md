@@ -16,9 +16,25 @@ OpenCode, Goose, and [others](https://agentskills.io/clients).
 
 ## Install
 
-### Claude Code (recommended)
+### Any agent, via GitHub CLI (easiest)
 
-The repo is a Claude Code plugin, so it installs and updates in place:
+`gh skill` knows where each agent keeps its skills, so you do not have to:
+
+```bash
+gh skill install kevin-buckley/sitecoreai-skills --agent codex
+gh skill install kevin-buckley/sitecoreai-skills --agent github-copilot
+gh skill install kevin-buckley/sitecoreai-skills --agent cursor --scope user
+gh skill update                       # update everything installed this way
+```
+
+`--scope user` installs for every project; the default, `project`, installs into the current repo.
+Pin a release with `--pin v1.1.1`. Claude Code, Codex, Copilot, Cursor, Gemini CLI, Amp, Goose,
+Junie, OpenCode, Windsurf and ~30 more are supported — run `gh skill install --help` for the list.
+The command is in preview and ships with recent `gh`.
+
+### Claude Code, via the plugin
+
+Claude Code can also install this as a plugin, which adds update-in-place and the plugin details UI:
 
 ```
 /plugin marketplace add kevin-buckley/sitecoreai-skills
@@ -33,20 +49,18 @@ To update later:
 ```
 
 Pin to a release instead of tracking `main` with
-`/plugin marketplace add kevin-buckley/sitecoreai-skills@v1.1.0`.
+`/plugin marketplace add kevin-buckley/sitecoreai-skills@v1.1.1`.
 
-### Any other agent
+### From a clone
 
-Clone, then run the installer. It writes into `~/.claude/skills` by default; point `--dest` at
-whatever directory your agent reads (see its
-[integration notes](https://agentskills.io/clients)).
+Use this when you want a subset, a symlinked working copy, or an agent `gh skill` does not cover.
 
 ```bash
 git clone https://github.com/kevin-buckley/sitecoreai-skills.git
 cd sitecoreai-skills
 
-./scripts/install.sh                                   # all 26
-./scripts/install.sh --dest ~/.cursor/skills           # elsewhere
+./scripts/install.sh                                   # all 26 -> ~/.claude/skills
+./scripts/install.sh --dest ~/.agents/skills           # somewhere else
 ./scripts/install.sh --category migration              # one category
 ./scripts/install.sh --only sitecoreai-page-design-setup
 ./scripts/install.sh --link                            # symlink, so git pull updates in place
@@ -58,13 +72,28 @@ On Windows, `scripts/install.ps1` takes the same options as PowerShell parameter
 to update — and both refuse to overwrite a directory that is not a skill unless you pass
 `--force` / `-Force`.
 
-**Do you need a subset?** Less than you would think. Agents load only each skill's `name` and
-`description` at startup — roughly 2-3k tokens for all 26 — and read a full `SKILL.md` only when a
-task matches. Install everything unless you have a specific reason not to.
+**`--dest` defaults to `~/.claude/skills`, which is correct only for Claude Code.** Every agent
+reads a different directory:
+
+| Agent | Personal | Project |
+| --- | --- | --- |
+| Claude Code | `~/.claude/skills` | `.claude/skills` |
+| Codex | `~/.agents/skills` | `.agents/skills` |
+| GitHub Copilot / VS Code | `~/.copilot/skills`, `~/.agents/skills` | `.github/skills`, `.claude/skills`, `.agents/skills` |
+
+For anything else, check that client's
+[integration notes](https://agentskills.io/clients) — or just use `gh skill install`, which resolves
+the path for you.
 
 ### Updating a manual install
 
 `git pull` then re-run the installer, or install once with `--link` and `git pull` alone is enough.
+
+### Do you need a subset?
+
+Less than you would think. Agents load only each skill's `name` and `description` at startup —
+roughly 2-3k tokens for all 26 — and read a full `SKILL.md` only when a task matches. Install
+everything unless you have a specific reason not to.
 
 ## How they activate
 

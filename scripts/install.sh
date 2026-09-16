@@ -1,11 +1,14 @@
 #!/usr/bin/env bash
 # Install or update the SitecoreAI skills into an agent's skills directory.
 #
-# For Claude Code, prefer the plugin:
-#   /plugin marketplace add kevin-buckley/sitecoreai-skills
-#   /plugin install sitecoreai-skills@sitecoreai-skills
-# This script is for agents without a plugin system (Cursor, Codex, Goose, ...),
-# and for installing a subset.
+# Most people do not need this script. Prefer:
+#   gh skill install kevin-buckley/sitecoreai-skills --agent <agent>   # any agent
+#   /plugin install sitecoreai-skills@sitecoreai-skills                # Claude Code
+# Use this when you want a subset, a symlinked working copy, or an agent
+# `gh skill` does not cover.
+#
+# --dest defaults to ~/.claude/skills, which is right only for Claude Code.
+# Codex reads ~/.agents/skills; Copilot reads ~/.copilot/skills or ~/.agents/skills.
 #
 #   ./scripts/install.sh                          # all skills -> ~/.claude/skills
 #   ./scripts/install.sh --dest ~/.cursor/skills  # somewhere else
@@ -36,7 +39,7 @@ while [ $# -gt 0 ]; do
     --link)     LINK=1; shift ;;
     --dry-run)  DRY=1; shift ;;
     --force)    FORCE=1; shift ;;
-    -h|--help)  sed -n '2,20p' "$0" | sed 's/^# \{0,1\}//'; exit 0 ;;
+    -h|--help)  awk 'NR>1 && /^#/ { sub(/^# ?/, ""); print; next } NR>1 { exit }' "$0"; exit 0 ;;
     *)          die "unknown option: $1" ;;
   esac
 done

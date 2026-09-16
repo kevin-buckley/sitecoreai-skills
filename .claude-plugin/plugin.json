@@ -2,7 +2,7 @@
   "name": "sitecoreai-skills",
   "displayName": "SitecoreAI Skills",
   "description": "Agent Skills for SitecoreAI (formerly Sitecore XM Cloud): XP-to-SitecoreAI migration playbooks, authoring guides, and project review audits.",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "author": {
     "name": "Kevin Buckley",
     "url": "https://github.com/kevin-buckley"
