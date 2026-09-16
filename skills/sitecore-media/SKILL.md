@@ -1,30 +1,30 @@
 ---
 name: sitecore-media
 description: >-
-  Audit media library organization in Sitecore XM Cloud: media stored as library items rather than
-  hard-coded external URLs, folder hierarchy under the site's media folder, naming conventions, and
-  upload defaults such as target folder, size limits, and alt text. Use when reviewing or auditing an
-  XM Cloud media library, cleaning up a flat or disorganized media folder, or when the user asks about
-  media naming or image organization. For datasource-adjacent media organization in SXA sites use
-  sitecore-sxa-datasources-media; for media delivery and image optimization use
-  sitecore-frontend-performance.
+  Audit media library organization in SitecoreAI (formerly XM Cloud): media stored as library
+  items rather than hard-coded external URLs, folder hierarchy under the site's media folder,
+  naming conventions, and upload defaults such as target folder, size limits, and alt text. Use
+  when reviewing or auditing a SitecoreAI media library, cleaning up a flat or disorganized media
+  folder, or when the user asks about media naming or image organization. For datasource-adjacent
+  media organization in SXA sites use sitecore-sxa-datasources-media; for media delivery and image
+  optimization use sitecore-frontend-performance. Common phrasings: media audit, media library
+  review.
 license: Apache-2.0
 metadata:
   display-name: "Media"
   category: project-review
-  tags: "audit, media-library, folders, naming, uploads, xm-cloud"
-  triggers: "media audit, media library review, image organization, media naming"
+  tags: "audit, media-library, folders, naming, uploads, sitecoreai"
 ---
 
 # Media
 
-Use this skill to audit media library organization in a Sitecore XM Cloud SXA Headless project.
+Use this skill to audit media library organization in a SitecoreAI SXA Headless project.
 
 ## Checks
 
 ### Media is stored in the database
 **Severity:** Minor
-**What to verify:** In XMC, media is stored in the Sitecore database and served via Experience Edge CDN. There is no filesystem-based media storage option. Verify that media is properly uploaded to the media library, not referenced via external URLs hard-coded in content.
+**What to verify:** In SitecoreAI, media is stored in the Sitecore database and served via Experience Edge CDN. There is no filesystem-based media storage option. Verify that media is properly uploaded to the media library, not referenced via external URLs hard-coded in content.
 **Issue indicators:** Images referenced via hard-coded external URLs instead of media library items, missing media items.
 **Recommendation:** Upload all media to the Sitecore media library. Reference media via media library fields. This ensures Edge CDN delivery and proper image resizing.
 

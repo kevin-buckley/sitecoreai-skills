@@ -1,23 +1,23 @@
 ---
 name: sitecore-workflow
 description: >-
-  Audit Sitecore XM Cloud workflow configuration: whether workflow is enabled and assigned through
-  standard values, role-based restrictions on state transitions and publishing, email notification
-  volume, workflow simplicity and state count, and the presence of a clear final publishable state.
-  Use when reviewing or auditing content workflow or publishing governance in XM Cloud, designing an
-  approval process, or when the user asks about workflow states, the workbox, or who is allowed to
-  publish to Experience Edge.
+  Audit SitecoreAI (formerly XM Cloud) workflow configuration: whether workflow is enabled and
+  assigned through standard values, role-based restrictions on state transitions and publishing,
+  email notification volume, workflow simplicity and state count, and the presence of a clear
+  final publishable state. Use when reviewing or auditing content workflow or publishing
+  governance in SitecoreAI, designing an approval process, or when the user asks about workflow
+  states, the workbox, or who is allowed to publish to Experience Edge. Common phrasings: workflow
+  audit, publishing review, workflow security, notification check.
 license: Apache-2.0
 metadata:
   display-name: "Workflow"
   category: project-review
-  tags: "audit, workflow, publishing, approvals, notifications, xm-cloud"
-  triggers: "workflow audit, publishing review, workflow security, notification check, workflow states"
+  tags: "audit, workflow, publishing, approvals, notifications, sitecoreai"
 ---
 
 # Workflow
 
-Use this skill to audit workflow configuration in a Sitecore XM Cloud SXA Headless project.
+Use this skill to audit workflow configuration in a SitecoreAI SXA Headless project.
 
 ## Checks
 
@@ -55,7 +55,7 @@ Use this skill to audit workflow configuration in a Sitecore XM Cloud SXA Headle
 **Severity:** Major
 **What to verify:** Only designated roles can trigger content publishing. Regular content editors submit work through workflow rather than publishing directly.
 **Issue indicators:** All editors have publish access, content published without review, workflow bypassed via direct publish.
-**Recommendation:** Restrict publish access to Publisher/Admin roles. Content editors submit through workflow. In XMC, publishing pushes to Experience Edge — restrict who can trigger this.
+**Recommendation:** Restrict publish access to Publisher/Admin roles. Content editors submit through workflow. In SitecoreAI, publishing pushes to Experience Edge — restrict who can trigger this.
 
 ## References
 

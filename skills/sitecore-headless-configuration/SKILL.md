@@ -1,30 +1,30 @@
 ---
 name: sitecore-headless-configuration
 description: >-
-  Audit Sitecore XM Cloud headless and Content SDK rendering host configuration: connected versus
-  disconnected mode per environment, Sitecore API key items and their CORS and impersonation settings,
-  site name, GraphQL endpoint and Edge context ID, app name matching the registered site, Node and npm
-  versions, and consistent versions across @sitecore-content-sdk and @sitecore-jss packages. Use when
-  reviewing or auditing rendering host setup, debugging a 401 from the layout service or an empty
-  layout response, or when the user asks about JSS or Content SDK configuration and environment
-  variables.
+  Audit SitecoreAI (formerly XM Cloud) headless and Content SDK rendering host configuration:
+  connected versus disconnected mode per environment, Sitecore API key items and their CORS and
+  impersonation settings, site name, GraphQL endpoint and Edge context ID, app name matching the
+  registered site, Node and npm versions, and consistent versions across @sitecore-content-sdk and
+  @sitecore-jss packages. Use when reviewing or auditing rendering host setup, debugging a 401
+  from the layout service or an empty layout response, or when the user asks about JSS or Content
+  SDK configuration and environment variables. Common phrasings: headless config review, api key
+  audit, rendering host setup check, jss configuration, content sdk setup.
 license: Apache-2.0
 metadata:
   display-name: "Headless Configuration"
   category: project-review
   tags: "audit, configuration, api-key, environment-variables, content-sdk, jss, node"
-  triggers: "headless config review, api key audit, rendering host setup check, jss configuration, content sdk setup"
 ---
 
 # Headless Configuration
 
-Use this skill to audit headless/Content SDK rendering host configuration in a Sitecore XM Cloud project.
+Use this skill to audit headless/Content SDK rendering host configuration in a SitecoreAI project.
 
 ## Checks
 
 ### Configured Mode
 **Severity:** Major
-**What to verify:** The rendering host operates in the correct mode for its environment: Connected mode (querying XM Cloud/Experience Edge) for production, or local development mode with appropriate fallbacks.
+**What to verify:** The rendering host operates in the correct mode for its environment: Connected mode (querying SitecoreAI/Experience Edge) for production, or local development mode with appropriate fallbacks.
 **Issue indicators:** Production rendering host still using Disconnected/Layout Service Direct mode, or development environment hitting production Edge unnecessarily.
 **Recommendation:** Ensure production builds query Experience Edge. Local development should use the local CM's layout service endpoint or a proxied Edge connection.
 
@@ -42,9 +42,9 @@ Use this skill to audit headless/Content SDK rendering host configuration in a S
 
 ### Configuration App Name matches the Solution
 **Severity:** Minor
-**What to verify:** The app name configured in the rendering host matches the JSS app registration in Sitecore (or the site name in XMC).
+**What to verify:** The app name configured in the rendering host matches the JSS app registration in Sitecore (or the site name in SitecoreAI).
 **Issue indicators:** Layout service returns empty layout because app name doesn't match any registered site/app.
-**Recommendation:** Ensure the `SITECORE_SITE_NAME` in the rendering host environment matches the site name in XM Cloud exactly.
+**Recommendation:** Ensure the `SITECORE_SITE_NAME` in the rendering host environment matches the site name in SitecoreAI exactly.
 
 ### Node and NPM version
 **Severity:** Minor

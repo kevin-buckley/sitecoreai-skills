@@ -1,24 +1,24 @@
 ---
 name: sitecore-sxa-datasources-media
 description: >-
-  Audit datasource and media organization in a Sitecore XM Cloud SXA headless site: keeping media in
-  sub-folders rather than loose under the site's media folder, giving datasource items meaningful
-  editor-facing names, grouping datasources into folders under shared or per-page Data locations, and
-  finding and removing orphaned datasources with no incoming links. Use when reviewing or auditing a
-  site's Data folders or media organization, or cleaning up unused datasources. For the media library
-  as a whole use sitecore-media; for where datasources should live during a migration use
-  sitecore-content-migration.
+  Audit datasource and media organization in a SitecoreAI (formerly XM Cloud) SXA headless site:
+  keeping media in sub-folders rather than loose under the site's media folder, giving datasource
+  items meaningful editor-facing names, grouping datasources into folders under shared or per-page
+  Data locations, and finding and removing orphaned datasources with no incoming links. Use when
+  reviewing or auditing a site's Data folders or media organization, or cleaning up unused
+  datasources. For the media library as a whole use sitecore-media; for where datasources should
+  live during a migration use sitecore-content-migration. Common phrasings: datasource audit, data
+  folder review, site data cleanup.
 license: Apache-2.0
 metadata:
   display-name: "SXA Datasources & Media"
   category: project-review
   tags: "audit, sxa, datasources, data-folders, media-organization, cleanup"
-  triggers: "datasource audit, media organization, data folder review, site data cleanup"
 ---
 
 # SXA Datasources & Media
 
-Use this skill to audit datasource and media organization in a Sitecore XM Cloud SXA Headless project.
+Use this skill to audit datasource and media organization in a SitecoreAI SXA Headless project.
 
 ## Checks
 

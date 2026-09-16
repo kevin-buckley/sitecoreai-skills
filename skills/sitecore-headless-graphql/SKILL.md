@@ -1,23 +1,24 @@
 ---
 name: sitecore-headless-graphql
 description: >-
-  Audit GraphQL configuration and security in Sitecore XM Cloud: choosing the Experience Edge versus
-  CM endpoint per environment, schema stitching conflicts, mutation exposure, authorization and API
-  key scope, disabling GraphiQL in production, query depth and complexity limits against query bombs,
-  custom schema and resolver efficiency, and query caching or whitelisting. Use when reviewing or
-  auditing GraphQL endpoints, investigating unpublished content visible on a public endpoint, or when
-  the user asks about endpoint security, query bombs, schema review, or GraphQL caching.
+  Audit GraphQL configuration and security in SitecoreAI (formerly XM Cloud): choosing the
+  Experience Edge versus CM endpoint per environment, schema stitching conflicts, mutation
+  exposure, authorization and API key scope, disabling GraphiQL in production, query depth and
+  complexity limits against query bombs, custom schema and resolver efficiency, and query caching
+  or whitelisting. Use when reviewing or auditing GraphQL endpoints, investigating unpublished
+  content visible on a public endpoint, or when the user asks about endpoint security, query
+  bombs, schema review, or GraphQL caching. Common phrasings: graphql audit, query bomb
+  prevention.
 license: Apache-2.0
 metadata:
   display-name: "Headless GraphQL"
   category: project-review
   tags: "audit, graphql, experience-edge, security, authorization, caching, schema"
-  triggers: "graphql audit, endpoint security, query bomb prevention, graphql caching, schema review"
 ---
 
 # Headless GraphQL
 
-Use this skill to audit GraphQL configuration and security in a Sitecore XM Cloud SXA Headless project.
+Use this skill to audit GraphQL configuration and security in a SitecoreAI SXA Headless project.
 
 ## Checks
 
@@ -49,7 +50,7 @@ Use this skill to audit GraphQL configuration and security in a Sitecore XM Clou
 **Severity:** Major
 **What to verify:** The GraphiQL interactive UI is disabled on production CM instances and not accessible publicly.
 **Issue indicators:** GraphiQL accessible at `/sitecore/api/graph/items/ui` or `/api/graphql/ide` on production, allowing schema introspection and arbitrary queries by anyone.
-**Recommendation:** Disable GraphiQL on production. In XMC, the CM is not publicly accessible by default, but verify no public proxy exposes it.
+**Recommendation:** Disable GraphiQL on production. In SitecoreAI, the CM is not publicly accessible by default, but verify no public proxy exposes it.
 
 ### Preventing DoS attacks (query bombs)
 **Severity:** Major
@@ -59,7 +60,7 @@ Use this skill to audit GraphQL configuration and security in a Sitecore XM Clou
 
 ### Custom GraphQL Schemas
 **Severity:** Minor
-**What to verify:** Custom schema extensions follow XMC conventions and don't conflict with OOTB schemas. Custom resolvers are efficient and don't introduce N+1 query problems.
+**What to verify:** Custom schema extensions follow SitecoreAI conventions and don't conflict with OOTB schemas. Custom resolvers are efficient and don't introduce N+1 query problems.
 **Issue indicators:** Custom schemas that shadow built-in types, resolvers making excessive database calls.
 **Recommendation:** Keep custom schemas in their own namespace. Use DataLoader patterns in custom resolvers to prevent N+1 problems.
 

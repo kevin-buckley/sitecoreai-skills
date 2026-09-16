@@ -1,24 +1,25 @@
 ---
 name: sitecore-content-items
 description: >-
-  Audit content item structure and hygiene in a Sitecore XM Cloud project: content hierarchy, items
-  per node, version accumulation, duplication, rich text usage, broken links, validation rules,
-  aliases and redirects, and URL resolution for non-page items. Use when reviewing or auditing XM
-  Cloud content structure, investigating slow content trees or editor timeouts, hunting broken links
-  or missing field validation, or when the user asks for a content audit or content health check.
-  Covers authored items: use sitecore-media for the media library, sitecore-data-templates for the
-  templates behind the items, and sitecore-content-migration when moving content in from XP.
+  Audit content item structure and hygiene in a SitecoreAI (formerly XM Cloud) project: content
+  hierarchy, items per node, version accumulation, duplication, rich text usage, broken links,
+  validation rules, aliases and redirects, and URL resolution for non-page items. Use when
+  reviewing or auditing SitecoreAI content structure, investigating slow content trees or editor
+  timeouts, hunting broken links or missing field validation, or when the user asks for a content
+  audit or content health check. Covers authored items: use sitecore-media for the media library,
+  sitecore-data-templates for the templates behind the items, and sitecore-content-migration when
+  moving content in from XP. Common phrasings: content structure review, item count check, version
+  cleanup.
 license: Apache-2.0
 metadata:
   display-name: "Content Items"
   category: project-review
-  tags: "audit, content, structure, versioning, broken-links, validation, xm-cloud"
-  triggers: "content audit, content structure review, item count check, broken links, version cleanup"
+  tags: "audit, content, structure, versioning, broken-links, validation, sitecoreai"
 ---
 
 # Content Items
 
-Use this skill to audit content item structure and hygiene in a Sitecore XM Cloud SXA Headless project.
+Use this skill to audit content item structure and hygiene in a SitecoreAI SXA Headless project.
 
 ## Checks
 
@@ -32,13 +33,13 @@ Use this skill to audit content item structure and hygiene in a Sitecore XM Clou
 **Severity:** Major
 **What to verify:** No single folder contains more than 100 direct children. Excessive children degrade editor performance in Pages and Content Editor.
 **Issue indicators:** Folders with 200+ items, slow tree loading, editor timeouts.
-**Recommendation:** Use date-based or alphabetical sub-folders when content grows. For XMC, this also affects GraphQL query performance on `children` queries.
+**Recommendation:** Use date-based or alphabetical sub-folders when content grows. For SitecoreAI, this also affects GraphQL query performance on `children` queries.
 
 ### Limit the number of versions
 **Severity:** Minor
 **What to verify:** Items do not accumulate excessive version history. A version management strategy exists (manual or automated cleanup).
 **Issue indicators:** Items with 50+ versions, large serialization payloads, slow item loading.
-**Recommendation:** Implement version pruning (manually or via scheduled script). XMC's Experience Edge publishes only the latest publishable version, but excessive versions still impact CM performance.
+**Recommendation:** Implement version pruning (manually or via scheduled script). SitecoreAI's Experience Edge publishes only the latest publishable version, but excessive versions still impact CM performance.
 
 ### Duplication of content
 **Severity:** Minor
@@ -74,7 +75,7 @@ Use this skill to audit content item structure and hygiene in a Sitecore XM Clou
 **Severity:** Minor
 **What to verify:** URL redirects are managed through a structured approach (redirect module, middleware, or Edge function) rather than ad-hoc item aliases.
 **Issue indicators:** Hundreds of Sitecore alias items, no redirect strategy for renamed/moved pages.
-**Recommendation:** Use a redirect module or Next.js middleware for URL management. In XMC, rendering host middleware or Vercel/Netlify redirects are preferred over Sitecore aliases.
+**Recommendation:** Use a redirect module or Next.js middleware for URL management. In SitecoreAI, rendering host middleware or Vercel/Netlify redirects are preferred over Sitecore aliases.
 
 ### Access to content items that do not correlate to pages
 **Severity:** Minor

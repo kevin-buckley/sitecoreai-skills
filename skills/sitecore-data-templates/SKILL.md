@@ -1,24 +1,24 @@
 ---
 name: sitecore-data-templates
 description: >-
-  Audit Sitecore XM Cloud data template design: naming, folder structure, inheritance (including the
-  required SXA Page and _Designable bases on page templates), duplicate field names, cyclical
-  inheritance, standard values, insert options, field source restrictions, rich text editor profiles,
-  and why presentation must not live on Standard Values. Use when reviewing or auditing an XM Cloud
-  content model, debugging templates whose items render nothing or return unexpected GraphQL values,
-  or when the user asks for a template audit or data model review. For migrating templates in from XP,
-  use sitecore-template-migration.
+  Audit SitecoreAI (formerly XM Cloud) data template design: naming, folder structure, inheritance
+  (including the required SXA Page and _Designable bases on page templates), duplicate field
+  names, cyclical inheritance, standard values, insert options, field source restrictions, rich
+  text editor profiles, and why presentation must not live on Standard Values. Use when reviewing
+  or auditing a SitecoreAI content model, debugging templates whose items render nothing or return
+  unexpected GraphQL values, or when the user asks for a template audit or data model review. For
+  migrating templates in from XP, use sitecore-template-migration. Common phrasings: template
+  review, data model check, field validation, template best practices.
 license: Apache-2.0
 metadata:
   display-name: "Data Templates"
   category: project-review
-  tags: "audit, templates, inheritance, standard-values, insert-options, fields, xm-cloud"
-  triggers: "template review, template audit, data model check, field validation, template best practices"
+  tags: "audit, templates, inheritance, standard-values, insert-options, fields, sitecoreai"
 ---
 
 # Data Templates
 
-Use this skill to audit data template design in a Sitecore XM Cloud SXA Headless project.
+Use this skill to audit data template design in a SitecoreAI SXA Headless project.
 
 ## Checks
 
@@ -51,7 +51,7 @@ Use this skill to audit data template design in a Sitecore XM Cloud SXA Headless
 **What to verify:** Every routable page template's inheritance chain includes BOTH:
 - SXA `Page` `{3F8A6A5D-7B1A-4566-8CD4-0A50F3030BD8}` — the marker base that SXA-aware tooling checks for via `DoesTemplateInheritFrom(Page.ID)`
 - SXA `_Designable` `{6650FB34-7EA1-4245-A919-5CC0F002A6D7}` — adds the `Page Design` field that participates in TemplatesMapping
-**Issue indicators:** Bespoke project page templates (e.g. those from Sitecore.Demo.Platform-style starters) inheriting only `_Designable + Standard Template`, skipping SXA Page. Symptom: pages render fine but external tools (Sitecore AI Pathway's "Download Export Structure", site-audit scripts, etc.) emit no pages for the site because their strict SXA Page inheritance check fails.
+**Issue indicators:** Bespoke project page templates (common in older demo and starter solutions) inheriting only `_Designable + Standard Template`, skipping SXA Page. Symptom: pages render fine but external tools (Sitecore AI Pathway's "Download Export Structure", site-audit scripts, etc.) emit no pages for the site because their strict SXA Page inheritance check fails.
 **Recommendation:** Add SXA Page to the project's root page template's `__Base template` field. SXA Page defines zero fields itself, so adding it as a base introduces no field collisions on any descendant. The change cascades to every page template that inherits from the root via normal Sitecore template inheritance; no per-template edits required.
 
 ### Cyclical template inheritance
@@ -80,7 +80,7 @@ Use this skill to audit data template design in a Sitecore XM Cloud SXA Headless
 
 ### Presentation details on Standard Values
 **Severity:** Major
-**What to verify:** In XMC, presentation is NOT set on Standard Values (the layout service does not resolve it from there). Instead, Page Designs + TemplatesMapping handle presentation inheritance.
+**What to verify:** In SitecoreAI, presentation is NOT set on Standard Values (the layout service does not resolve it from there). Instead, Page Designs + TemplatesMapping handle presentation inheritance.
 **Issue indicators:** `__Renderings` or `__Final Renderings` populated on Standard Values expecting inheritance — components don't render on items.
 **Recommendation:** Remove presentation from Standard Values. Use Page Designs with TemplatesMapping for presentation inheritance.
 
@@ -123,7 +123,7 @@ Use this skill to audit data template design in a Sitecore XM Cloud SXA Headless
 ### Avoid changes to /sitecore/templates/system
 **Severity:** Major
 **What to verify:** No modifications to system templates. Custom fields or changes must be on project-specific templates only.
-**Issue indicators:** Modified system templates that break on XMC upgrades.
+**Issue indicators:** Modified system templates that break on SitecoreAI upgrades.
 **Recommendation:** Never modify system templates. Create project-specific templates that inherit what you need.
 
 ### Utilizing datasources instead of fields on page templates

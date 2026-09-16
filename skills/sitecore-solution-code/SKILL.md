@@ -1,24 +1,25 @@
 ---
 name: sitecore-solution-code
 description: >-
-  Audit code quality in a Sitecore XM Cloud Content SDK rendering host: hard-coded item paths, GUIDs,
-  media URLs, copy, language, device rules, versions, and domains; direct database access; naming
-  consistency between code files and Sitecore rendering items; package manager and lock file hygiene;
-  build scripts; and Helix-style modular organization. Use when reviewing or auditing rendering host
-  source code, hunting hard-coded values, or when the user asks for a code review of a Sitecore
-  headless solution. For front-end runtime performance use sitecore-frontend-performance; for project
-  and placeholder architecture use sitecore-headless-project-structure.
+  Audit code quality in a SitecoreAI (formerly XM Cloud) Content SDK rendering host: hard-coded
+  item paths, GUIDs, media URLs, copy, language, device rules, versions, and domains; direct
+  database access; naming consistency between code files and Sitecore rendering items; package
+  manager and lock file hygiene; build scripts; and Helix-style modular organization. Use when
+  reviewing or auditing rendering host source code, hunting hard-coded values, or when the user
+  asks for a code review of a Sitecore headless solution. For front-end runtime performance use
+  sitecore-frontend-performance; for project and placeholder architecture use
+  sitecore-headless-project-structure. Common phrasings: hard-coded values check, naming audit,
+  dependency review, helix compliance.
 license: Apache-2.0
 metadata:
   display-name: "Solution Code"
   category: project-review
   tags: "audit, code-quality, hard-coded-values, naming, dependencies, helix, content-sdk"
-  triggers: "code review, hard-coded values check, naming audit, dependency review, helix compliance"
 ---
 
 # Solution Code
 
-Use this skill to audit solution code quality in a Sitecore XM Cloud Content SDK rendering host project.
+Use this skill to audit solution code quality in a SitecoreAI Content SDK rendering host project.
 
 ## Checks — Hard-coded Values
 

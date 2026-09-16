@@ -1,24 +1,24 @@
 ---
 name: sitecore-sxa-page-structure
 description: >-
-  Audit SXA page structure in a Sitecore XM Cloud headless site: defining layout in Partial Designs
-  rather than on items or Page Designs, encapsulating reusable structures, curating Available
-  Renderings, requiring page templates to inherit from both SXA Page and _Designable, placeholder
-  restrictions, keeping presentation off Standard Values in favor of TemplatesMapping, Partial Design
-  inheritance, and component sizing versus splitter renderings. Use when reviewing or auditing SXA
-  page composition. For building or debugging Page Designs and TemplatesMapping rather than auditing
-  them, use sitecore-page-design-setup.
+  Audit SXA page structure in a SitecoreAI (formerly XM Cloud) headless site: defining layout in
+  Partial Designs rather than on items or Page Designs, encapsulating reusable structures,
+  curating Available Renderings, requiring page templates to inherit from both SXA Page and
+  _Designable, placeholder restrictions, keeping presentation off Standard Values in favor of
+  TemplatesMapping, Partial Design inheritance, and component sizing versus splitter renderings.
+  Use when reviewing or auditing SXA page composition. For building or debugging Page Designs and
+  TemplatesMapping rather than auditing them, use sitecore-page-design-setup. Common phrasings:
+  page design audit, partial design review, sxa structure check.
 license: Apache-2.0
 metadata:
   display-name: "SXA Page Structure"
   category: project-review
   tags: "audit, sxa, partial-designs, page-designs, placeholder-restrictions, inheritance"
-  triggers: "page design audit, partial design review, sxa structure check, placeholder restrictions"
 ---
 
 # SXA Page Structure
 
-Use this skill to audit SXA page structure patterns in a Sitecore XM Cloud SXA Headless project.
+Use this skill to audit SXA page structure patterns in a SitecoreAI SXA Headless project.
 
 ## Checks
 
@@ -46,7 +46,7 @@ Use this skill to audit SXA page structure patterns in a Sitecore XM Cloud SXA H
 **Issue indicators:**
 - Bespoke project page templates inheriting only from Standard Template + a custom base, skipping SXA Page entirely. Symptom: the page renders fine, but the upstream Sitecore AI Pathway "Download Export Structure" script and any other tool that does `DoesTemplateInheritFrom(SXA Page)` emits zero pages for the site.
 - Page templates inheriting from SXA Page but missing _Designable. Symptom: no `Page Design` field on the page item, TemplatesMapping inheritance doesn't apply, editors can't pick a page design.
-- Sites scaffolded outside the SXA Headless Site Branch Template (e.g. Sitecore.Demo.Platform's older Pages/Page) commonly hit the first case.
+- Sites scaffolded outside the SXA Headless Site Branch Template (legacy `Pages/Page`-style templates) commonly hit the first case.
 **Recommendation:** Add SXA Page as an additional base on the site's root project page template; the inheritance cascades to every descendant page template. SXA Page itself defines zero fields, so adding it as a base introduces no field collisions. Standard SXA Headless Site Branch Template-scaffolded sites already satisfy this; bespoke or migrated sites typically don't and need a one-line `__Base template` field edit (with cascading effect on all descendants).
 
 ### Setup placeholder restrictions

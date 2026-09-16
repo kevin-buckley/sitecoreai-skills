@@ -24,6 +24,9 @@ const KNOWN_KEYS = new Set([
 
 const NAME_RE = /^[a-z0-9]+(-[a-z0-9]+)*$/;
 
+// Repo convention, not part of the spec.
+const CATEGORIES = new Set(["migration", "authoring", "project-review"]);
+
 // Recommended ceilings from the spec's progressive-disclosure section.
 const MAX_BODY_LINES = 500;
 const MAX_BODY_TOKENS = 5000;
@@ -190,6 +193,26 @@ function validateSkill(dirName) {
         if (typeof v !== "string") err(dirName, `metadata.${k} must be a string value`);
       }
     }
+  }
+
+  // --- repo conventions (not spec requirements; see CONTRIBUTING.md) ---
+  if (data.metadata && typeof data.metadata === "object") {
+    if (data.metadata.triggers !== undefined) {
+      warn(
+        dirName,
+        'metadata.triggers is not read by any agent — fold those phrases into `description`, which is the only field used for matching',
+      );
+    }
+    const category = data.metadata.category;
+    if (category !== undefined && !CATEGORIES.has(category)) {
+      warn(dirName, `metadata.category "${category}" is not one of ${[...CATEGORIES].join(", ")}`);
+    }
+  }
+
+  // SitecoreAI was named XM Cloud until Symposium 2025. Descriptions keep the old
+  // name so a skill still matches someone who says it.
+  if (typeof description === "string" && /SitecoreAI/.test(description) && !/XM Cloud/.test(description)) {
+    warn(dirName, 'description names SitecoreAI but not "XM Cloud" — keep the former name so the skill still matches it');
   }
 
   if (data.license !== undefined && typeof data.license !== "string") {

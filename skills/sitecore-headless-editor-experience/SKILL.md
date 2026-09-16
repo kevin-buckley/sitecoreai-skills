@@ -1,24 +1,25 @@
 ---
 name: sitecore-headless-editor-experience
 description: >-
-  Audit editor experience support in a Sitecore XM Cloud Content SDK rendering host: guarding window,
-  document, and localStorage in server-rendered code; third-party libraries that break inside the
-  Pages editor iframe; treating the layout service response as an open API with optional fields;
-  self-contained custom 404 and 500 pages; and SXA integration for dynamic placeholders, component
-  styles, and rendering parameters. Use when reviewing or auditing the Pages editing experience, or
-  debugging 'window is not defined' errors, hydration mismatches, or components that render on the
-  live site but break inside the editor.
+  Audit editor experience support in a SitecoreAI (formerly XM Cloud) Content SDK rendering host:
+  guarding window, document, and localStorage in server-rendered code; third-party libraries that
+  break inside the Pages editor iframe; treating the layout service response as an open API with
+  optional fields; self-contained custom 404 and 500 pages; and SXA integration for dynamic
+  placeholders, component styles, and rendering parameters. Use when reviewing or auditing the
+  Pages editing experience, or debugging 'window is not defined' errors, hydration mismatches, or
+  components that render on the live site but break inside the editor. Common phrasings: editor
+  experience review, pages editor audit, inline editing check, custom library review, browser
+  object handling.
 license: Apache-2.0
 metadata:
   display-name: "Headless Editor Experience"
   category: project-review
   tags: "audit, pages-editor, ssr, hydration, layout-service, error-pages, sxa"
-  triggers: "editor experience review, pages editor audit, inline editing check, custom library review, browser object handling"
 ---
 
 # Headless Editor Experience
 
-Use this skill to audit editor experience support in a Sitecore XM Cloud Content SDK rendering host.
+Use this skill to audit editor experience support in a SitecoreAI Content SDK rendering host.
 
 ## Checks
 
@@ -48,7 +49,7 @@ Use this skill to audit editor experience support in a Sitecore XM Cloud Content
 
 ### SXA & Headless Services integration
 **Severity:** Minor
-**What to verify:** The rendering host properly supports SXA features used in XMC: dynamic placeholders from Partial Designs, component styles, rendering parameters.
+**What to verify:** The rendering host properly supports SXA features used in SitecoreAI: dynamic placeholders from Partial Designs, component styles, rendering parameters.
 **Issue indicators:** Partial Design placeholders not rendering, component styles not applied, rendering parameters not passed to components.
 **Recommendation:** Ensure the rendering host uses the Content SDK's SXA placeholder resolution. Map rendering parameters and styles to component props correctly.
 

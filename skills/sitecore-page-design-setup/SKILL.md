@@ -1,24 +1,25 @@
 ---
 name: sitecore-page-design-setup
 description: >-
-  Wire XM Cloud Page Designs, Partial Designs, TemplatesMapping, and headless placeholders, including
-  the non-obvious platform quirks that burn time: asymmetric TemplatesMapping URL encoding, why
-  renderings placed on a Page Design's own Final Renderings never render, Partial Design ordering with
-  p:before and p:after, the canonical headless-header / headless-main / headless-footer placeholder
-  keys, and the Final Renderings device ID. Use when binding a template to a page design, composing or
-  ordering partial designs, positioning a rendering, building a shared sub-page architecture, or
-  debugging a rendering that does not appear on the page.
+  Wire SitecoreAI (formerly XM Cloud) Page Designs, Partial Designs, TemplatesMapping, and
+  headless placeholders, including the non-obvious platform quirks that burn time: asymmetric
+  TemplatesMapping URL encoding, why renderings placed on a Page Design's own Final Renderings
+  never render, Partial Design ordering with p:before and p:after, the canonical headless-header /
+  headless-main / headless-footer placeholder keys, and the Final Renderings device ID. Use when
+  binding a template to a page design, composing or ordering partial designs, positioning a
+  rendering, building a shared sub-page architecture, or debugging a rendering that does not
+  appear on the page. Common phrasings: templates mapping, headless sxa placeholder, sub page
+  design, shared page design, partial design position, page design final renderings.
 license: Apache-2.0
 metadata:
   display-name: "Page Design & Partial Design Setup"
-  category: migration
-  tags: "page-design, partial-design, templates-mapping, headless, placeholders, xm-cloud, sxa-headless"
-  triggers: "page design, partial design, templates mapping, templatesmapping, headless placeholder, headless sxa placeholder, sub page design, shared page design, partial design position, partial design order, page design final renderings, p:before, p:after"
+  category: authoring
+  tags: "page-design, partial-design, templates-mapping, headless, placeholders, sitecoreai, sxa-headless"
 ---
 
 # Page Design & Partial Design Setup
 
-Use this skill when binding templates to Page Designs, composing Partial Designs, or positioning renderings in a Headless SXA site. These are the non-obvious XM Cloud platform behaviors that repeatedly burn time.
+Use this skill when binding templates to Page Designs, composing Partial Designs, or positioning renderings in a Headless SXA site. These are the non-obvious SitecoreAI platform behaviors that repeatedly burn time.
 
 ## Mental Model
 
@@ -34,7 +35,7 @@ The whole Page Design + Partial Design + TemplatesMapping system only resolves i
 - **SXA Page** `{3F8A6A5D-7B1A-4566-8CD4-0A50F3030BD8}` — the marker base SXA-aware tooling checks (`DoesTemplateInheritFrom(Page.ID)`). External pipelines like the Sitecore AI Pathway "Download Export Structure" script enumerate site pages by this check.
 - **_Designable** `{6650FB34-7EA1-4245-A919-5CC0F002A6D7}` — adds the `Page Design` field on every page item; without it, TemplatesMapping has nothing to bind to per-item.
 
-SXA Headless Site Branch Template-scaffolded sites satisfy this automatically. Bespoke or migrated sites (e.g. Sitecore.Demo.Platform's `Pages/Page` template that inherits only from `_Designable + Standard Template`) need SXA Page added as a base on the project root page template. SXA Page itself defines zero fields, so adding it as an additional base cascades to all descendants with no field collisions. See `sitecore-template-migration` / `sitecore-data-templates` skill for the audit rule.
+SXA Headless Site Branch Template-scaffolded sites satisfy this automatically. Bespoke or migrated sites — e.g. a legacy `Pages/Page` template inheriting only from `_Designable + Standard Template` — need SXA Page added as a base on the project root page template. SXA Page itself defines zero fields, so adding it as an additional base cascades to all descendants with no field collisions. See `sitecore-template-migration` / `sitecore-data-templates` skill for the audit rule.
 
 ## Gotcha: Renderings on a Page Design's own Final Renderings do NOT render
 
@@ -97,7 +98,7 @@ The standard device GUID used in `__Final Renderings` XML for Headless pages:
 {FE5D7FDF-89C0-4D99-9AA3-B5FBD009C9F3}
 ```
 
-All rendering `<d>` elements on XM Cloud Headless SXA sites use this device ID. If you are generating Final Renderings XML programmatically, hardcode this.
+All rendering `<d>` elements on SitecoreAI Headless SXA sites use this device ID. If you are generating Final Renderings XML programmatically, hardcode this.
 
 ## Shared sub-page architecture pattern
 
@@ -121,5 +122,5 @@ This keeps chrome (header, footer, shared CTAs) in one editable location while a
 
 ## Out-of-Scope
 
-- SXA (XP) Page Designs use a different authoring model; do not transplant XP SXA design items into XM Cloud. Rebuild.
-- Traditional MVC layout items and `__Renderings` / `__Final Renderings` on regular Page items still exist in XM Cloud but should not be used for shared chrome — always route shared presentation through Page Designs + Partial Designs.
+- SXA (XP) Page Designs use a different authoring model; do not transplant XP SXA design items into SitecoreAI. Rebuild.
+- Traditional MVC layout items and `__Renderings` / `__Final Renderings` on regular Page items still exist in SitecoreAI but should not be used for shared chrome — always route shared presentation through Page Designs + Partial Designs.

@@ -1,23 +1,24 @@
 ---
 name: sitecore-frontend-performance
 description: >-
-  Audit front-end performance and accessibility for a Sitecore XM Cloud rendering host: Core Web
-  Vitals and page load budgets, TTFB, JavaScript bundling and code splitting, script loading strategy,
-  CDN usage, CSS bundling and critical CSS, minification and Brotli/Gzip compression, data and
-  presentation caching, and WCAG 2.1 AA conformance. Use when reviewing or auditing page speed,
-  Lighthouse scores, bundle size, or accessibility on a Sitecore headless site. For server-side
-  rendering strategy and personalization caching, use sitecore-headless-performance.
+  Audit front-end performance and accessibility for a SitecoreAI (formerly XM Cloud) rendering
+  host: Core Web Vitals and page load budgets, TTFB, JavaScript bundling and code splitting,
+  script loading strategy, CDN usage, CSS bundling and critical CSS, minification and Brotli/Gzip
+  compression, data and presentation caching, and WCAG 2.1 AA conformance. Use when reviewing or
+  auditing page speed, Lighthouse scores, bundle size, or accessibility on a Sitecore headless
+  site. For server-side rendering strategy and personalization caching, use
+  sitecore-headless-performance. Common phrasings: frontend performance audit, page speed review,
+  js optimization, css audit, cdn check, wcag accessibility.
 license: Apache-2.0
 metadata:
   display-name: "Frontend Performance"
   category: project-review
   tags: "audit, performance, core-web-vitals, javascript, css, cdn, compression, accessibility"
-  triggers: "frontend performance audit, page speed review, js optimization, css audit, cdn check, wcag accessibility, core web vitals"
 ---
 
 # Frontend Performance
 
-Use this skill to audit frontend performance in a Sitecore XM Cloud Content SDK rendering host.
+Use this skill to audit frontend performance in a SitecoreAI Content SDK rendering host.
 
 ## Checks — Page Load
 
@@ -49,9 +50,9 @@ Use this skill to audit frontend performance in a Sitecore XM Cloud Content SDK 
 
 ### Use a CDN
 **Severity:** Major
-**What to verify:** Static assets and media are served via CDN. In XMC, Experience Edge serves content via CDN. The rendering host should also be deployed behind a CDN (Vercel, Netlify, CloudFront).
+**What to verify:** Static assets and media are served via CDN. In SitecoreAI, Experience Edge serves content via CDN. The rendering host should also be deployed behind a CDN (Vercel, Netlify, CloudFront).
 **Issue indicators:** Assets served directly from origin without CDN, high latency for static resources, no edge caching.
-**Recommendation:** Deploy the rendering host on a platform with built-in CDN (Vercel, Netlify). Configure proper cache headers. XMC media is already CDN-served via Experience Edge.
+**Recommendation:** Deploy the rendering host on a platform with built-in CDN (Vercel, Netlify). Configure proper cache headers. SitecoreAI media is already CDN-served via Experience Edge.
 
 ## Checks — CSS
 

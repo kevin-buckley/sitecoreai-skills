@@ -1,30 +1,31 @@
 ---
 name: sitecore-sxa-renderings
 description: >-
-  Audit SXA rendering usage and component development in Sitecore XM Cloud: Json Renderings versus
-  leftover MVC controller renderings, keeping Available Renderings, Placeholder Settings allowed
-  controls, and the rendering host's component-map in agreement, snippet renderings, rich text over
-  plain HTML, rendering variant counts and previews, never customizing SXA-controlled tree branches or
-  replacing the SXA layout, SXA modules, Helix layering, and reusing or cloning renderings before
-  building new ones. Use when reviewing or auditing renderings, or debugging the 'Content SDK
-  component is missing React implementation' panel.
+  Audit SXA rendering usage and component development in SitecoreAI (formerly XM Cloud): Json
+  Renderings versus leftover MVC controller renderings, keeping Available Renderings, Placeholder
+  Settings allowed controls, and the rendering host's component-map in agreement, snippet
+  renderings, rich text over plain HTML, rendering variant counts and previews, never customizing
+  SXA-controlled tree branches or replacing the SXA layout, SXA modules, Helix layering, and
+  reusing or cloning renderings before building new ones. Use when reviewing or auditing
+  renderings, or debugging the 'Content SDK component is missing React implementation' panel.
+  Common phrasings: rendering review, variant audit, component development check, custom
+  rendering.
 license: Apache-2.0
 metadata:
   display-name: "SXA Renderings & Development"
   category: project-review
   tags: "audit, sxa, renderings, variants, component-map, available-renderings, helix"
-  triggers: "rendering review, variant audit, component development check, sxa module, custom rendering"
 ---
 
 # SXA Renderings & Development
 
-Use this skill to audit rendering usage, rendering variants, and development practices in a Sitecore XM Cloud SXA Headless project.
+Use this skill to audit rendering usage, rendering variants, and development practices in a SitecoreAI SXA Headless project.
 
 ## Checks — Rendering Usage
 
 ### Use proper renderings for the job
 **Severity:** Minor
-**What to verify:** Components use appropriate SXA rendering types. JSON Renderings (headless) are used for Content SDK delivery. No MVC-only renderings referenced.
+**What to verify:** Components use appropriate SXA rendering types. Json Renderings are used for Content SDK delivery. No MVC-era renderings remain referenced after a migration.
 **Issue indicators:** Controller renderings or View renderings in a headless site, custom renderings built where an OOTB SXA headless rendering would work.
 **Recommendation:** Prefer OOTB SXA headless renderings where they meet requirements. Only create custom JSON renderings when OOTB options are insufficient.
 
@@ -33,7 +34,7 @@ Use this skill to audit rendering usage, rendering variants, and development pra
 **What to verify:** Every rendering ID in a site's `Presentation/Available Renderings` folders AND in its `Presentation/Placeholder Settings/.../Allowed Controls` resolves to a Json Rendering with a non-empty `componentName`, AND that `componentName` is registered in the rendering host's `.sitecore/component-map.ts`. The three layers are a contract — break any one and editors get an allowlist that promises components the rendering host can't render.
 **Issue indicators:**
 - Pages render the orange "Content SDK component is missing React implementation" panel.
-- A rendering's `template` is `Controller rendering` (XP MVC) instead of `Json Rendering`.
+- A rendering's `template` is `Controller rendering` (an MVC-era carryover) instead of `Json Rendering`.
 - A rendering's `componentName` field is empty (controller renderings never have it; misconfigured Json renderings sometimes don't either).
 - A rendering item lives under `/Renderings/Project/<OtherSite>/` but is referenced from this site — the React component lives in the *other* site's rendering host, not this one.
 - The SXA Headless Site Branch Template scaffolded the default 13 Available Renderings (RichText, Image, Title, PageContent, Promo, Navigation, LinkList, Container, ColumnSplitter, RowSplitter, Form, BYOC Wrapper, FEaaS Wrapper) but the rendering host is bespoke (not started from the Sitecore Next.js starter) and only registers a project-specific subset, so most defaults fall through to the missing-implementation panel.
@@ -45,7 +46,7 @@ Use this skill to audit rendering usage, rendering variants, and development pra
 **Issue indicators:** Editors must manually assemble multi-component patterns from scratch each time.
 **Recommendation:** Create Snippet renderings for common component combinations that editors repeatedly assemble.
 
-### Do not use Plain HTML for content edited by Content Editors
+### Do not use Plain HTML for content edited by content editors
 **Severity:** Minor
 **What to verify:** Editor-managed content uses proper Rich Text or structured component fields, not raw HTML components.
 **Issue indicators:** Plain HTML or raw markup components used where editors need to make changes — leading to broken markup from casual edits.
@@ -87,7 +88,7 @@ Use this skill to audit rendering usage, rendering variants, and development pra
 
 ### Do not replace the SXA Layout with a custom implementation
 **Severity:** Major
-**What to verify:** The site uses the standard SXA Headless layout. In XMC, this is the JSS layout that the Content SDK rendering host expects.
+**What to verify:** The site uses the standard SXA Headless layout. In SitecoreAI, this is the JSS layout that the Content SDK rendering host expects.
 **Issue indicators:** Custom layout definitions replacing the SXA headless layout, breaking Page Design resolution and placeholder inheritance.
 **Recommendation:** Use the standard SXA Headless layout. Customize page structure through Partial Designs and the rendering host's Layout component.
 

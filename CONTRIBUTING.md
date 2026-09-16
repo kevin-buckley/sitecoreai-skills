@@ -26,11 +26,13 @@ description: >-
 license: Apache-2.0
 metadata:
   display-name: "Example"
-  category: project-review      # migration | project-review
+  category: project-review      # migration | authoring | project-review
   tags: "audit, example"
-  triggers: "example audit, example review"
 ---
 ```
+
+`metadata` is for organizing this catalog; no agent reads it. Do not add a `triggers` key — trigger
+phrases belong in `description`, which is the only field an agent matches on.
 
 Run the validator before opening a PR. CI runs the same command.
 
@@ -50,6 +52,9 @@ the entire triggering burden. Follow
 - **Draw the boundary.** Several skills here overlap — say which adjacent skill owns the
   neighbouring concern, the way `sitecore-frontend-performance` and `sitecore-headless-performance`
   point at each other. This is what keeps the wrong one from loading.
+- **Name the platform SitecoreAI, and keep "XM Cloud" in the text.** SitecoreAI is the current
+  name, but people will say XM Cloud for years. Every description here mentions both so either
+  phrasing matches.
 - **Stay under 1024 characters.** Enforced.
 
 ## Writing the body
@@ -68,7 +73,12 @@ the entire triggering burden. Follow
 
 ## Scope
 
-This repo is for Sitecore XM Cloud: migrating to it from XP, and auditing a build on it. Skills
-about other Sitecore products (Content Hub, CDP, Personalize, Search, OrderCloud) are welcome as a
-discussion first — several would fit, but they need their own naming and category conventions rather
-than being folded into `migration` / `project-review`.
+This repo is for SitecoreAI: migrating to it from XP, building on it, and auditing a build on it.
+Today the skills cover the CMS side — content, templates, presentation, Headless SXA, and the
+Content SDK rendering host.
+
+SitecoreAI also absorbed Content Hub, Search, Personalize, CDP, and Stream, so skills for those are
+in scope for the platform in a way they were not under the XM Cloud branding. They are still worth
+raising as a discussion first: each brings vocabulary that overlaps badly with the CMS skills, and
+the `migration` / `authoring` / `project-review` categories may not be the right split for them.
+OrderCloud remains a separate product.

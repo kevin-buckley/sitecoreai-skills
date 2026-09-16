@@ -1,23 +1,23 @@
 ---
 name: sitecore-sxa-theming
 description: >-
-  Audit SXA theming in a Sitecore XM Cloud headless site: never modifying out-of-the-box platform
-  themes, defining Component Styles so editors get visual variations without resorting to custom
-  classes in rendering parameters or rich text, removing orphaned style items, and organizing styles
-  into sub-folders by purpose. Use when reviewing or auditing a site's Styles folder, themes, or
-  component style options. For front-end CSS delivery, bundling, and unused CSS shipped to the
-  browser, use sitecore-frontend-performance.
+  Audit SXA theming in a SitecoreAI (formerly XM Cloud) headless site: never modifying
+  out-of-the-box platform themes, defining Component Styles so editors get visual variations
+  without resorting to custom classes in rendering parameters or rich text, removing orphaned
+  style items, and organizing styles into sub-folders by purpose. Use when reviewing or auditing a
+  site's Styles folder, themes, or component style options. For front-end CSS delivery, bundling,
+  and unused CSS shipped to the browser, use sitecore-frontend-performance. Common phrasings:
+  theme audit, sxa styles review, css organization check, platform theme modifications.
 license: Apache-2.0
 metadata:
   display-name: "SXA Theming"
   category: project-review
   tags: "audit, sxa, themes, styles, component-styles, css"
-  triggers: "theme audit, sxa styles review, css organization check, platform theme modifications"
 ---
 
 # SXA Theming
 
-Use this skill to audit SXA theming practices in a Sitecore XM Cloud SXA Headless project.
+Use this skill to audit SXA theming practices in a SitecoreAI SXA Headless project.
 
 ## Checks
 

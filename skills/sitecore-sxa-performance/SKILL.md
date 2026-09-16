@@ -1,23 +1,23 @@
 ---
 name: sitecore-sxa-performance
 description: >-
-  Audit SXA performance practices in Sitecore XM Cloud: keeping rendering instances per page under
-  about 30, restricting content testing to editors who actually use it, output caching and Vary By
-  settings for CM preview, and asset bundling - handled by the rendering host build for headless sites
-  rather than the SXA Asset Optimizer. Use when reviewing or auditing a slow Pages editor, large
-  layout service responses, or component counts on a page. For delivery-side performance use
-  sitecore-headless-performance and sitecore-frontend-performance.
+  Audit SXA performance practices in SitecoreAI (formerly XM Cloud): keeping rendering instances
+  per page under about 30, restricting content testing to editors who actually use it, output
+  caching and Vary By settings for CM preview, and asset bundling - handled by the rendering host
+  build for headless sites rather than the SXA Asset Optimizer. Use when reviewing or auditing a
+  slow Pages editor, large layout service responses, or component counts on a page. For
+  delivery-side performance use sitecore-headless-performance and sitecore-frontend-performance.
+  Common phrasings: sxa performance review, component count check, caching audit.
 license: Apache-2.0
 metadata:
   display-name: "SXA Performance"
   category: project-review
   tags: "audit, sxa, performance, component-count, caching, asset-optimizer"
-  triggers: "sxa performance review, component count check, caching audit, asset optimizer"
 ---
 
 # SXA Performance
 
-Use this skill to audit SXA performance practices in a Sitecore XM Cloud SXA Headless project.
+Use this skill to audit SXA performance practices in a SitecoreAI SXA Headless project.
 
 ## Checks
 
@@ -35,7 +35,7 @@ Use this skill to audit SXA performance practices in a Sitecore XM Cloud SXA Hea
 
 ### Consider configuring HTML Caching settings for components
 **Severity:** Minor
-**What to verify:** In XMC, Experience Edge provides CDN-level caching for published content. For the CM authoring experience, output caching settings on renderings can improve editor preview performance.
+**What to verify:** In SitecoreAI, Experience Edge provides CDN-level caching for published content. For the CM authoring experience, output caching settings on renderings can improve editor preview performance.
 **Issue indicators:** Slow page previews in the CM, no caching configuration on renderings.
 **Recommendation:** Configure Vary By rules on rendering items for CM preview caching. For delivery, rely on Experience Edge CDN caching and rendering host ISR/SSG strategies.
 

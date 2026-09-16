@@ -1,23 +1,23 @@
 ---
 name: sitecore-headless-performance
 description: >-
-  Audit rendering strategy and output caching in a Sitecore XM Cloud headless site: choosing ISR,
-  static generation, or SSR per page type; keeping personalized components out of static cache; and
-  avoiding heavy synchronous server-side work during render. Use when reviewing or auditing SSR and
-  ISR strategy, high TTFB, redundant Experience Edge queries, or personalization that renders the same
-  variant for every visitor. For browser-side concerns such as bundles, CSS, images, and Core Web
-  Vitals, use sitecore-frontend-performance.
+  Audit rendering strategy and output caching in a SitecoreAI (formerly XM Cloud) headless site:
+  choosing ISR, static generation, or SSR per page type; keeping personalized components out of
+  static cache; and avoiding heavy synchronous server-side work during render. Use when reviewing
+  or auditing SSR and ISR strategy, high TTFB, redundant Experience Edge queries, or
+  personalization that renders the same variant for every visitor. For browser-side concerns such
+  as bundles, CSS, images, and Core Web Vitals, use sitecore-frontend-performance. Common
+  phrasings: headless performance, caching review, personalization performance, ssr optimization.
 license: Apache-2.0
 metadata:
   display-name: "Headless Performance & Scaling"
   category: project-review
-  tags: "audit, performance, isr, ssr, caching, personalization, xm-cloud"
-  triggers: "headless performance, caching review, personalization performance, ssr optimization"
+  tags: "audit, performance, isr, ssr, caching, personalization, sitecoreai"
 ---
 
 # Headless Performance & Scaling
 
-Use this skill to audit rendering host performance in a Sitecore XM Cloud SXA Headless project.
+Use this skill to audit rendering host performance in a SitecoreAI SXA Headless project.
 
 ## Checks
 

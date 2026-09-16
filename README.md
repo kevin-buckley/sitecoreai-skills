@@ -1,7 +1,14 @@
 # Sitecore Skills
 
-Agent Skills for building on **Sitecore XM Cloud** — migrating from Sitecore XP, and auditing an
-XM Cloud SXA Headless / Content SDK project once it exists.
+Agent Skills for building on **SitecoreAI** (the platform formerly named **Sitecore XM Cloud**) —
+migrating in from Sitecore XP, and auditing a SitecoreAI SXA Headless / Content SDK project once it
+exists.
+
+> **Naming.** Sitecore retired the XM Cloud brand at Symposium 2025, folding the CMS together with
+> Content Hub, Search, Personalize, CDP, and Stream into a single platform called SitecoreAI. These
+> skills use *SitecoreAI* throughout for the platform, and keep the unchanged technical names —
+> Experience Edge, Content SDK, Headless SXA, the `dotnet sitecore` CLI — as they are. Every
+> description also carries "XM Cloud" so the skills still match if you or your team still say it.
 
 26 skills, conforming to the [Agent Skills specification](https://agentskills.io/specification).
 They work in any skills-compatible agent: Claude Code, Claude, Cursor, Copilot, Codex, Gemini CLI,
@@ -42,27 +49,32 @@ For other agents, drop the same directories into that client's skills location �
 Agents load only each skill's `name` and `description` at startup, then read the full `SKILL.md`
 when a task matches. You don't invoke these by name; describe the work and the relevant skill loads
 itself. "Our page designs aren't applying to the Sub Page template" pulls in
-`sitecore-page-design-setup`; "review this XM Cloud solution's templates" pulls in
+`sitecore-page-design-setup`; "review this SitecoreAI solution's templates" pulls in
 `sitecore-data-templates`.
 
 `sitecore-migration-playbook` is the entry point for migration work — it routes to the focused
-migration skills and covers which XP features have no XM Cloud equivalent at all.
+migration skills and covers which XP features have no SitecoreAI equivalent at all.
 
 ## Catalog
 
-### Migration — Sitecore XP to XM Cloud
+### Migration — Sitecore XP to SitecoreAI
 
 | Skill | Covers |
 | --- | --- |
-| [`sitecore-migration-playbook`](skills/sitecore-migration-playbook/SKILL.md) | Start here. Plans and sequences a migration spanning site, templates, components, content, and code; names the XP features with no XM Cloud equivalent. |
+| [`sitecore-migration-playbook`](skills/sitecore-migration-playbook/SKILL.md) | Start here. Plans and sequences a migration spanning site, templates, components, content, and code; names the XP features with no SitecoreAI equivalent. |
 | [`sitecore-site-migration`](skills/sitecore-site-migration/SKILL.md) | Site and tenant definition, information architecture, navigation, routes, site settings, dictionary, redirects. |
 | [`sitecore-template-migration`](skills/sitecore-template-migration/SKILL.md) | Data templates, base and branch templates, standard values, insert options, field mapping, the SXA Page + `_Designable` inheritance requirement. |
 | [`sitecore-component-migration`](skills/sitecore-component-migration/SKILL.md) | XP renderings and SXA variants rebuilt as Json Renderings plus Content SDK React components, including renderings reused across mixed datasource shapes. |
 | [`sitecore-content-migration`](skills/sitecore-content-migration/SKILL.md) | Page items, datasources, media, taxonomy, language versions; shared vs. per-page datasource placement; Sitecore CLI serialization. |
 | [`sitecore-code-migration`](skills/sitecore-code-migration/SKILL.md) | Classifying MVC controllers, repositories, pipelines, integrations, and SPE scripts into rebuild / redesign / externalize / drop. |
-| [`sitecore-page-design-setup`](skills/sitecore-page-design-setup/SKILL.md) | Page Designs, Partial Designs, TemplatesMapping encoding, `p:before` / `p:after` positioning, headless placeholder keys. The platform quirks that burn the most time. |
 
-### Project review — auditing an XM Cloud build
+### Authoring — building in SitecoreAI
+
+| Skill | Covers |
+| --- | --- |
+| [`sitecore-page-design-setup`](skills/sitecore-page-design-setup/SKILL.md) | Page Designs, Partial Designs, TemplatesMapping encoding, `p:before` / `p:after` positioning, headless placeholder keys. The platform quirks that burn the most time. Useful during a migration and long after one. |
+
+### Project review — auditing a SitecoreAI build
 
 | Skill | Covers |
 | --- | --- |
@@ -94,19 +106,29 @@ block:
 ```yaml
 metadata:
   display-name: "Page Design & Partial Design Setup"
-  category: migration          # migration | project-review
+  category: authoring          # migration | authoring | project-review
   tags: "page-design, partial-design, templates-mapping, headless, ..."
-  triggers: "page design, partial design, templates mapping, ..."
 ```
 
-`category`, `tags`, and `triggers` are not spec fields, so they live under `metadata` where the spec
-allows arbitrary string key-value pairs. Migration skills also declare `compatibility`, since they
-assume an XP source, an XM Cloud target, and the Sitecore CLI.
+`category` and `tags` are not spec fields, so they live under `metadata`, where the spec allows
+arbitrary string key-value pairs. They organize this catalog; no agent reads them. Migration skills
+also declare `compatibility`, since they assume an XP source, a SitecoreAI target, and the Sitecore
+CLI.
 
-The migration skills describe a reference target repo layout (`xmc-local`, its two-root
-serialization split, one rendering host per site). Those sections say so explicitly — adapt the
-paths to your own repo and keep the underlying split, which exists because authoring items and
-content items reach XM Cloud by different routes.
+**Everything an agent matches on lives in `description`.** Agents load only `name` and `description`
+at startup, so a keyword that is not in the description does not exist as far as routing is
+concerned. An earlier `metadata.triggers` field listed trigger phrases that nothing ever read; those
+phrases have been folded into the descriptions themselves and the field is gone. When you add a
+skill, put its vocabulary in the description.
+
+Skills stay within the spec's progressive-disclosure budget — under 500 lines and roughly 5,000
+tokens — so most are a single self-contained `SKILL.md`. Detail that is genuinely optional, or
+specific to one reference implementation rather than to the platform, goes in a `references/` file
+the agent loads only if it needs it. `sitecore-migration-playbook` does this with
+[its reference repo layout](skills/sitecore-migration-playbook/references/reference-repo-layout.md):
+SKILL.md states the two-root serialization split as a rule, and the worked example with concrete
+repo, site, and MCP server names sits alongside it. Skill bodies otherwise avoid naming any
+particular project, so they apply to yours.
 
 ## Validation
 

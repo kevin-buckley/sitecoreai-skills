@@ -1,24 +1,24 @@
 ---
 name: sitecore-headless-project-structure
 description: >-
-  Audit rendering host project structure and placeholder patterns in a Sitecore XM Cloud Content SDK
-  project: feature-domain component organization, router-based internal links, component composition,
-  layouts that render placeholders instead of hard-coded chrome, reading values from datasource fields
-  instead of hard-coded copy, placeholder naming conventions, media handling and image optimization,
-  null-safe field rendering, and content resolver efficiency. Use when reviewing or auditing how a
-  Sitecore headless front end is organized, or when the user asks about component architecture,
-  placeholder audits, or content resolvers.
+  Audit rendering host project structure and placeholder patterns in a SitecoreAI (formerly XM
+  Cloud) Content SDK project: feature-domain component organization, router-based internal links,
+  component composition, layouts that render placeholders instead of hard-coded chrome, reading
+  values from datasource fields instead of hard-coded copy, placeholder naming conventions, media
+  handling and image optimization, null-safe field rendering, and content resolver efficiency. Use
+  when reviewing or auditing how a Sitecore headless front end is organized, or when the user asks
+  about component architecture, placeholder audits, or content resolvers. Common phrasings:
+  project structure review, media handling check, content resolver review.
 license: Apache-2.0
 metadata:
   display-name: "Headless Project Structure & Placeholders"
   category: project-review
   tags: "audit, project-structure, placeholders, components, media, content-resolvers, helix"
-  triggers: "project structure review, component architecture, placeholder audit, media handling check, content resolver review"
 ---
 
 # Headless Project Structure & Placeholders
 
-Use this skill to audit the rendering host project structure and placeholder patterns in a Sitecore XM Cloud Content SDK project.
+Use this skill to audit the rendering host project structure and placeholder patterns in a SitecoreAI Content SDK project.
 
 ## Checks — Project Structure
 
@@ -62,9 +62,9 @@ Use this skill to audit the rendering host project structure and placeholder pat
 
 ### Media Handling
 **Severity:** Minor
-**What to verify:** Media from XM Cloud is served efficiently — using the Edge media endpoint with proper image optimization, lazy loading, and responsive sizing.
+**What to verify:** Media from SitecoreAI is served efficiently — using the Edge media endpoint with proper image optimization, lazy loading, and responsive sizing.
 **Issue indicators:** Images served at full resolution without sizing parameters, no lazy loading, broken image URLs in local development.
-**Recommendation:** Use Next.js `<Image>` with the XMC media domain configured in `next.config.js`. Use Content SDK's `<Image>` field component which handles URL construction. Configure image loader for Edge media.
+**Recommendation:** Use Next.js `<Image>` with the SitecoreAI media domain configured in `next.config.js`. Use Content SDK's `<Image>` field component which handles URL construction. Configure image loader for Edge media.
 
 ### Component Validation
 **Severity:** Minor

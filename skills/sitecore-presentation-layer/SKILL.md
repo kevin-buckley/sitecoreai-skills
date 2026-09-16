@@ -1,31 +1,31 @@
 ---
 name: sitecore-presentation-layer
 description: >-
-  Audit Sitecore XM Cloud presentation configuration: number of layouts per site, static binding
-  through Partial Designs versus per-item renderings, dynamic editor-placed components, Placeholder
-  Settings and allowed controls, rendering item configuration (component name, datasource template and
-  location, rendering parameters), and image sizing parameters. Use when reviewing or auditing how
-  presentation is wired in an XM Cloud project, or when the user asks about layout audits, placeholder
-  checks, component binding, or image parameters. For creating or debugging Page Designs and
-  TemplatesMapping, use sitecore-page-design-setup.
+  Audit SitecoreAI (formerly XM Cloud) presentation configuration: number of layouts per site,
+  static binding through Partial Designs versus per-item renderings, dynamic editor-placed
+  components, Placeholder Settings and allowed controls, rendering item configuration (component
+  name, datasource template and location, rendering parameters), and image sizing parameters. Use
+  when reviewing or auditing how presentation is wired in a SitecoreAI project, or when the user
+  asks about layout audits, placeholder checks, component binding, or image parameters. For
+  creating or debugging Page Designs and TemplatesMapping, use sitecore-page-design-setup. Common
+  phrasings: presentation review.
 license: Apache-2.0
 metadata:
   display-name: "Presentation Layer"
   category: project-review
-  tags: "audit, presentation, layouts, placeholders, renderings, binding, xm-cloud"
-  triggers: "presentation review, layout audit, placeholder check, component binding, image parameters"
+  tags: "audit, presentation, layouts, placeholders, renderings, binding, sitecoreai"
 ---
 
 # Presentation Layer
 
-Use this skill to audit presentation layer configuration in a Sitecore XM Cloud SXA Headless project.
+Use this skill to audit presentation layer configuration in a SitecoreAI SXA Headless project.
 
 ## Checks
 
 ### Limit the number of layouts
 **Severity:** Minor
-**What to verify:** The project uses a minimal number of layout definitions. In XMC SXA Headless, there should typically be exactly one layout (the JSS/Headless layout) per site.
-**Issue indicators:** Multiple custom layouts created when one would suffice, legacy MVC layouts still referenced.
+**What to verify:** The project uses a minimal number of layout definitions. In SitecoreAI SXA Headless, there should typically be exactly one layout (the JSS/Headless layout) per site.
+**Issue indicators:** Multiple custom layouts created when one would suffice, or MVC-era layouts still referenced after a migration.
 **Recommendation:** Use a single Headless layout per site. Structural variations should be handled through Page Designs and Partial Designs, not multiple layouts.
 
 ### Static binding
@@ -56,7 +56,7 @@ Use this skill to audit presentation layer configuration in a Sitecore XM Cloud 
 **Severity:** Minor
 **What to verify:** Images rendered via Content SDK use appropriate sizing parameters (width/height/max dimensions) to avoid serving full-resolution images to end users.
 **Issue indicators:** Full-resolution images served without resizing, no `next/image` optimization configured, media URLs without query parameters.
-**Recommendation:** Use Next.js `<Image>` component with appropriate dimensions or Content SDK's image field with parameters. Configure `next.config.js` image domains for the XMC media endpoint.
+**Recommendation:** Use Next.js `<Image>` component with appropriate dimensions or Content SDK's image field with parameters. Configure `next.config.js` image domains for the SitecoreAI media endpoint.
 
 ## References
 

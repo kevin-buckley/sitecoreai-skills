@@ -1,7 +1,7 @@
 {
   "name": "sitecore-skills",
   "version": "1.0.0",
-  "description": "Agent Skills for Sitecore XM Cloud: XP-to-XM Cloud migration playbooks and XM Cloud project review audits.",
+  "description": "Agent Skills for SitecoreAI (formerly Sitecore XM Cloud): XP-to-SitecoreAI migration playbooks, authoring guides, and project review audits.",
   "private": true,
   "type": "module",
   "scripts": {

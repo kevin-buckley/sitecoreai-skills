@@ -1,24 +1,24 @@
 ---
 name: sitecore-sxa-multisite
 description: >-
-  Audit SXA multisite architecture and content sharing in a Sitecore XM Cloud tenant: centralizing
-  styles, rendering variants, and Page and Partial Designs in the Shared site; delegated areas or
-  shared datasources for cross-site content; a blueprint or master site for spinning up new markets;
-  and authoring items in their target language rather than translating a default-language version
-  later. Use when reviewing or auditing a multi-site or multi-market XM Cloud tenant, tackling style
-  and design drift between sites, or when the user asks about shared sites, content sharing, blueprint
-  sites, or language and fallback setup.
+  Audit SXA multisite architecture and content sharing in a SitecoreAI (formerly XM Cloud) tenant:
+  centralizing styles, rendering variants, and Page and Partial Designs in the Shared site;
+  delegated areas or shared datasources for cross-site content; a blueprint or master site for
+  spinning up new markets; and authoring items in their target language rather than translating a
+  default-language version later. Use when reviewing or auditing a multi-site or multi-market
+  SitecoreAI tenant, tackling style and design drift between sites, or when the user asks about
+  shared sites, content sharing, blueprint sites, or language and fallback setup. Common
+  phrasings: multisite review, shared site audit, content sharing check, language setup.
 license: Apache-2.0
 metadata:
   display-name: "SXA Multisite & Content Sharing"
   category: project-review
   tags: "audit, sxa, multisite, shared-site, content-sharing, blueprint, languages"
-  triggers: "multisite review, shared site audit, content sharing check, language setup, blueprint site"
 ---
 
 # SXA Multisite & Content Sharing
 
-Use this skill to audit multisite architecture and content sharing in a Sitecore XM Cloud SXA Headless project.
+Use this skill to audit multisite architecture and content sharing in a SitecoreAI SXA Headless project.
 
 ## Checks
 
@@ -44,7 +44,7 @@ Use this skill to audit multisite architecture and content sharing in a Sitecore
 **Severity:** Minor
 **What to verify:** For multi-market rollouts, a master site template exists that can be cloned to quickly spin up new sites with the correct structure, templates, and base content.
 **Issue indicators:** New sites built from scratch each time, with inconsistent structures.
-**Recommendation:** Create a site template with scaffolding scripts that produce consistent new sites. In XMC, use the Site Template mechanism (ExecuteScript + Headless Site Setup).
+**Recommendation:** Create a site template with scaffolding scripts that produce consistent new sites. In SitecoreAI, use the Site Template mechanism (ExecuteScript + Headless Site Setup).
 
 ### Consider defining Page Designs and Partial Designs in the shared site
 **Severity:** Minor

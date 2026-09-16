@@ -1,24 +1,24 @@
 ---
 name: sitecore-security
 description: >-
-  Audit security configuration in Sitecore XM Cloud: role-based versus per-user rights, breaking
-  inheritance rather than explicit deny, content tree and ribbon access limits, weak or default
-  passwords, the default administrator account, media upload restrictions, SecurityDisabler usage, SQL
-  injection risk in custom code, and secret storage. Use when reviewing or auditing XM Cloud security,
-  hardening roles and accounts, or when the user asks for a security review, access control check, or
-  permissions audit. For GraphQL endpoint and API key security specifically, use
-  sitecore-headless-graphql.
+  Audit security configuration in SitecoreAI (formerly XM Cloud): role-based versus per-user
+  rights, breaking inheritance rather than explicit deny, content tree and ribbon access limits,
+  weak or default passwords, the default administrator account, media upload restrictions,
+  SecurityDisabler usage, SQL injection risk in custom code, and secret storage. Use when
+  reviewing or auditing SitecoreAI security, hardening roles and accounts, or when the user asks
+  for a security review, access control check, or permissions audit. For GraphQL endpoint and API
+  key security specifically, use sitecore-headless-graphql. Common phrasings: security audit, role
+  review, password check, admin account review.
 license: Apache-2.0
 metadata:
   display-name: "Security"
   category: project-review
-  tags: "audit, security, roles, users, passwords, access-control, uploads, xm-cloud"
-  triggers: "security audit, role review, password check, admin account review, upload restrictions, access control"
+  tags: "audit, security, roles, users, passwords, access-control, uploads, sitecoreai"
 ---
 
 # Security
 
-Use this skill to audit security configuration in a Sitecore XM Cloud SXA Headless project.
+Use this skill to audit security configuration in a SitecoreAI SXA Headless project.
 
 ## Checks — Roles and Users
 
@@ -50,7 +50,7 @@ Use this skill to audit security configuration in a Sitecore XM Cloud SXA Headle
 **Severity:** Major
 **What to verify:** All user accounts have strong passwords. No accounts use default, empty, or easily guessed passwords.
 **Issue indicators:** Accounts with password "admin", "password", empty password, or site name as password.
-**Recommendation:** Enforce password complexity requirements. Audit existing accounts for weak passwords. In XMC, prefer SSO/Azure AD authentication over local accounts.
+**Recommendation:** Enforce password complexity requirements. Audit existing accounts for weak passwords. In SitecoreAI, prefer SSO/Azure AD authentication over local accounts.
 
 ### Use profile settings to specify the interface users will log into
 **Severity:** Minor
@@ -68,7 +68,7 @@ Use this skill to audit security configuration in a Sitecore XM Cloud SXA Headle
 **Severity:** Major
 **What to verify:** The default `sitecore\admin` account is disabled or has its password changed from the default in all environments.
 **Issue indicators:** Default admin account active with default password on any accessible environment.
-**Recommendation:** In XMC, use SSO authentication. Disable or strongly re-password any default admin accounts. Use named admin accounts for audit trails.
+**Recommendation:** In SitecoreAI, use SSO authentication. Disable or strongly re-password any default admin accounts. Use named admin accounts for audit trails.
 
 ## Checks — Application Security
 
@@ -76,19 +76,19 @@ Use this skill to audit security configuration in a Sitecore XM Cloud SXA Headle
 **Severity:** Major
 **What to verify:** Media upload restrictions are configured to prevent dangerous file types (executable, scripts) from being uploaded to the media library.
 **Issue indicators:** No file type restrictions on uploads, ability to upload `.exe`, `.aspx`, `.ps1` files.
-**Recommendation:** Configure allowed media file extensions. Block executable and script file types. In XMC, media is served through Edge CDN and not executed, but restricting uploads prevents confusion and potential issues.
+**Recommendation:** Configure allowed media file extensions. Block executable and script file types. In SitecoreAI, media is served through Edge CDN and not executed, but restricting uploads prevents confusion and potential issues.
 
 ### Minimize the use of SecurityDisabler
 **Severity:** Major
 **What to verify:** Custom code does not use `SecurityDisabler` or elevated privileges unless absolutely necessary and properly scoped.
 **Issue indicators:** SecurityDisabler used broadly in custom code, security bypass in background jobs or API handlers.
-**Recommendation:** Avoid SecurityDisabler in custom code. If needed, scope it to the minimum necessary operation and document why. In XMC headless apps, this primarily applies to custom CM-side code (scripts, event handlers).
+**Recommendation:** Avoid SecurityDisabler in custom code. If needed, scope it to the minimum necessary operation and document why. In SitecoreAI headless apps, this primarily applies to custom CM-side code (scripts, event handlers).
 
 ### SQL injection risk
 **Severity:** Major
 **What to verify:** No custom code constructs SQL queries by string concatenation with user input. All database access uses parameterized queries or ORMs.
 **Issue indicators:** String-interpolated SQL queries with user-supplied values.
-**Recommendation:** Always use parameterized queries. In XMC headless projects, this primarily applies to any custom API endpoints or server actions that access databases.
+**Recommendation:** Always use parameterized queries. In SitecoreAI headless projects, this primarily applies to any custom API endpoints or server actions that access databases.
 
 ### Encryption
 **Severity:** Minor
