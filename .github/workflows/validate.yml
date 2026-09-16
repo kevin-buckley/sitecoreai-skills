@@ -5,6 +5,9 @@ on:
     branches: [main]
   pull_request:
   workflow_dispatch:
+  schedule:
+    # Docs move. Catch link rot weekly rather than when someone trips over it.
+    - cron: '0 6 * * 1'
 
 jobs:
   validate:
@@ -25,3 +28,13 @@ jobs:
           bash scripts/install.sh --dest "$RUNNER_TEMP/skills" --dry-run
           bash scripts/install.sh --dest "$RUNNER_TEMP/skills"
           test -f "$RUNNER_TEMP/skills/sitecoreai-migration-playbook/SKILL.md"
+
+  links:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+      - name: Check external links
+        run: node scripts/check-links.mjs --warn
