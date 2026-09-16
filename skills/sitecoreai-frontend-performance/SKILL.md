@@ -104,6 +104,6 @@ Use this skill to audit frontend performance in a SitecoreAI Content SDK renderi
 
 ## References
 
-- https://web.dev/vitals/
-- https://nextjs.org/docs/app/building-your-application/optimizing
+- https://web.dev/articles/vitals
+- https://nextjs.org/docs/app/getting-started
 - https://www.w3.org/WAI/WCAG21/quickref/

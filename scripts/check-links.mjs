@@ -124,7 +124,8 @@ for (const r of results) {
   if (r.status === 403 || r.status === 429) blocked.push(r);
   else if (r.status === 0) dead.push({ ...r, reason: r.error });
   else if (r.status >= 400) dead.push({ ...r, reason: `HTTP ${r.status}` });
-  else if (r.final && r.final !== r.url) moved.push(r);
+  // A .git clone URL always redirects to the web page; that is not a move.
+  else if (r.final && r.final !== r.url && !r.url.endsWith(".git")) moved.push(r);
 }
 
 if (moved.length) {

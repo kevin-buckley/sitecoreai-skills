@@ -80,7 +80,12 @@ the entire triggering burden. Follow
   `/sai/` tree is a *restructure*, not a rename — pages sit under per-section segments and some were
   re-slugged (`workflows.html` -> `workflow.html`, `language-support.html` ->
   `working-with-languages.html`). A find-and-replace across the `/xmc/` links produces 404s, verified
-  against `themes.html`. If you move a link, verify that exact URL loads first.
+  against `themes.html`. If you move a link, open that exact URL in a browser first.
+
+  **CI cannot check these for you.** `doc.sitecore.com` returns HTTP 403 to every automated request,
+  so `scripts/check-links.mjs` reports its links as *blocked*, not dead, and does not fail the build
+  on them. Blocked means unverified, not healthy — Sitecore doc links are the one set you have to
+  eyeball by hand.
 
 ## Scope
 

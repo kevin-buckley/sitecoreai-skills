@@ -106,4 +106,4 @@ Use this skill to audit solution code quality in a SitecoreAI Content SDK render
 ## References
 
 - https://doc.sitecore.com/xmc/en/developers/xm-cloud/project-structure.html
-- https://helix.sitecore.com/
+- https://github.com/Sitecore/Helix.Docs

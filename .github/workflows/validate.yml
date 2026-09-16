@@ -16,7 +16,7 @@ jobs:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
         with:
-          node-version: '20'
+          node-version: '22'
       - name: Validate against the Agent Skills specification
         run: node scripts/validate-skills.mjs
 
@@ -35,6 +35,6 @@ jobs:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
         with:
-          node-version: '20'
+          node-version: '22'
       - name: Check external links
-        run: node scripts/check-links.mjs --warn
+        run: node scripts/check-links.mjs

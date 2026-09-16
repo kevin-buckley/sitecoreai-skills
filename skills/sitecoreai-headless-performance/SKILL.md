@@ -42,4 +42,4 @@ Use this skill to audit rendering host performance in a SitecoreAI SXA Headless 
 ## References
 
 - https://doc.sitecore.com/xmc/en/developers/xm-cloud/rendering-host-performance.html
-- https://nextjs.org/docs/app/building-your-application/data-fetching/incremental-static-regeneration
+- https://nextjs.org/docs/app/guides/incremental-static-regeneration
