@@ -16,3 +16,12 @@ jobs:
           node-version: '20'
       - name: Validate against the Agent Skills specification
         run: node scripts/validate-skills.mjs
+
+      - name: Validate packaging manifests
+        run: node scripts/validate-manifests.mjs
+
+      - name: Check the installer runs
+        run: |
+          bash scripts/install.sh --dest "$RUNNER_TEMP/skills" --dry-run
+          bash scripts/install.sh --dest "$RUNNER_TEMP/skills"
+          test -f "$RUNNER_TEMP/skills/sitecoreai-migration-playbook/SKILL.md"

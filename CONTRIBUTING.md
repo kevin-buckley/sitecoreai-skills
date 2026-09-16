@@ -4,10 +4,10 @@
 
 Every skill is one directory under `skills/` containing a `SKILL.md`. The directory name is the
 skill's identity — it must match the `name` in the frontmatter exactly, and everything here is
-prefixed `sitecore-` so the names don't collide with skills installed from elsewhere.
+prefixed `sitecoreai-` so the names don't collide with skills installed from elsewhere.
 
 ```
-skills/sitecore-example/
+skills/sitecoreai-example/
 ├── SKILL.md          # required
 ├── references/       # optional: detail loaded on demand
 ├── scripts/          # optional: executable helpers
@@ -19,10 +19,10 @@ and `allowed-tools` at the top level. Anything else belongs under `metadata`:
 
 ```yaml
 ---
-name: sitecore-example
+name: sitecoreai-example
 description: >-
   What it does. Use when <the situations it applies to>, or when the user mentions
-  <keywords>. For <adjacent concern>, use sitecore-other-skill instead.
+  <keywords>. For <adjacent concern>, use sitecoreai-other-skill instead.
 license: Apache-2.0
 metadata:
   display-name: "Example"
@@ -34,11 +34,15 @@ metadata:
 `metadata` is for organizing this catalog; no agent reads it. Do not add a `triggers` key — trigger
 phrases belong in `description`, which is the only field an agent matches on.
 
-Run the validator before opening a PR. CI runs the same command.
+Run the validators before opening a PR. CI runs the same checks.
 
 ```bash
-node scripts/validate-skills.mjs
+npm run validate
 ```
+
+That covers the skills themselves and the packaging manifests. If you add or rename a skill, it is
+picked up automatically — the plugin auto-discovers every `skills/*/SKILL.md`, so there is no list
+to update.
 
 ## Writing the description
 
@@ -50,7 +54,7 @@ the entire triggering burden. Follow
 - **Write for user intent, not mechanics.** Agents match against what someone asked for.
 - **Cover the vocabulary people actually use,** including cases where they never name the domain.
 - **Draw the boundary.** Several skills here overlap — say which adjacent skill owns the
-  neighbouring concern, the way `sitecore-frontend-performance` and `sitecore-headless-performance`
+  neighbouring concern, the way `sitecoreai-frontend-performance` and `sitecoreai-headless-performance`
   point at each other. This is what keeps the wrong one from loading.
 - **Name the platform SitecoreAI, and keep "XM Cloud" in the text.** SitecoreAI is the current
   name, but people will say XM Cloud for years. Every description here mentions both so either
@@ -69,7 +73,7 @@ the entire triggering burden. Follow
   in `SKILL.md` *when* to read each file — "read `references/x.md` if <condition>", not "see
   references/ for details". The validator warns when a body exceeds the budget.
 - **Prefer a default over a menu.** Pick the recommended approach and mention alternatives briefly.
-- **Cross-reference by full name** (`sitecore-page-design-setup`, not `page-design-setup`).
+- **Cross-reference by full name** (`sitecoreai-page-design-setup`, not `page-design-setup`).
 - **Link to `doc.sitecore.com/xmc/...` URLs, and leave them alone.** Sitecore now also publishes
   SitecoreAI docs under `doc.sitecore.com/sai/en/developers/sitecoreai/...`, so the `/xmc/` paths
   look stale. They are not: they still resolve and already serve SitecoreAI-branded content. The

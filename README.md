@@ -16,43 +16,65 @@ OpenCode, Goose, and [others](https://agentskills.io/clients).
 
 ## Install
 
-Each skill is a self-contained directory holding a `SKILL.md`. Copy the ones you want into your
-agent's skills directory, or clone the repo and symlink.
+### Claude Code (recommended)
 
-```bash
-git clone https://github.com/kevin-buckley/sitecore-skills.git
+The repo is a Claude Code plugin, so it installs and updates in place:
+
+```
+/plugin marketplace add kevin-buckley/sitecoreai-skills
+/plugin install sitecoreai-skills@sitecoreai-skills
 ```
 
-**Claude Code** — personal (all projects) or per-project:
+To update later:
 
-```bash
-# all projects
-cp -r sitecore-skills/skills/* ~/.claude/skills/
-
-# just this project
-mkdir -p .claude/skills && cp -r ../sitecore-skills/skills/* .claude/skills/
+```
+/plugin marketplace update
+/plugin update sitecoreai-skills
 ```
 
-**Pick a subset.** You rarely want all 26 at once — the migration set and the audit set address
-different phases of a project:
+Pin to a release instead of tracking `main` with
+`/plugin marketplace add kevin-buckley/sitecoreai-skills@v1.1.0`.
+
+### Any other agent
+
+Clone, then run the installer. It writes into `~/.claude/skills` by default; point `--dest` at
+whatever directory your agent reads (see its
+[integration notes](https://agentskills.io/clients)).
 
 ```bash
-cp -r sitecore-skills/skills/sitecore-migration-playbook ~/.claude/skills/
-cp -r sitecore-skills/skills/sitecore-page-design-setup  ~/.claude/skills/
+git clone https://github.com/kevin-buckley/sitecoreai-skills.git
+cd sitecoreai-skills
+
+./scripts/install.sh                                   # all 26
+./scripts/install.sh --dest ~/.cursor/skills           # elsewhere
+./scripts/install.sh --category migration              # one category
+./scripts/install.sh --only sitecoreai-page-design-setup
+./scripts/install.sh --link                            # symlink, so git pull updates in place
+./scripts/install.sh --dry-run                         # show what would happen
 ```
 
-For other agents, drop the same directories into that client's skills location — see its
-[integration notes](https://agentskills.io/clients).
+On Windows, `scripts/install.ps1` takes the same options as PowerShell parameters
+(`-Dest`, `-Category`, `-Only`, `-Link`, `-WhatIf`). Both scripts are idempotent — re-run either one
+to update — and both refuse to overwrite a directory that is not a skill unless you pass
+`--force` / `-Force`.
+
+**Do you need a subset?** Less than you would think. Agents load only each skill's `name` and
+`description` at startup — roughly 2-3k tokens for all 26 — and read a full `SKILL.md` only when a
+task matches. Install everything unless you have a specific reason not to.
+
+### Updating a manual install
+
+`git pull` then re-run the installer, or install once with `--link` and `git pull` alone is enough.
 
 ## How they activate
 
 Agents load only each skill's `name` and `description` at startup, then read the full `SKILL.md`
 when a task matches. You don't invoke these by name; describe the work and the relevant skill loads
 itself. "Our page designs aren't applying to the Sub Page template" pulls in
-`sitecore-page-design-setup`; "review this SitecoreAI solution's templates" pulls in
-`sitecore-data-templates`.
+`sitecoreai-page-design-setup`; "review this SitecoreAI solution's templates" pulls in
+`sitecoreai-data-templates`.
 
-`sitecore-migration-playbook` is the entry point for migration work — it routes to the focused
+`sitecoreai-migration-playbook` is the entry point for migration work — it routes to the focused
 migration skills and covers which XP features have no SitecoreAI equivalent at all.
 
 ## Catalog
@@ -61,42 +83,42 @@ migration skills and covers which XP features have no SitecoreAI equivalent at a
 
 | Skill | Covers |
 | --- | --- |
-| [`sitecore-migration-playbook`](skills/sitecore-migration-playbook/SKILL.md) | Start here. Plans and sequences a migration spanning site, templates, components, content, and code; names the XP features with no SitecoreAI equivalent. |
-| [`sitecore-site-migration`](skills/sitecore-site-migration/SKILL.md) | Site and tenant definition, information architecture, navigation, routes, site settings, dictionary, redirects. |
-| [`sitecore-template-migration`](skills/sitecore-template-migration/SKILL.md) | Data templates, base and branch templates, standard values, insert options, field mapping, the SXA Page + `_Designable` inheritance requirement. |
-| [`sitecore-component-migration`](skills/sitecore-component-migration/SKILL.md) | XP renderings and SXA variants rebuilt as Json Renderings plus Content SDK React components, including renderings reused across mixed datasource shapes. |
-| [`sitecore-content-migration`](skills/sitecore-content-migration/SKILL.md) | Page items, datasources, media, taxonomy, language versions; shared vs. per-page datasource placement; Sitecore CLI serialization. |
-| [`sitecore-code-migration`](skills/sitecore-code-migration/SKILL.md) | Classifying MVC controllers, repositories, pipelines, integrations, and SPE scripts into rebuild / redesign / externalize / drop. |
+| [`sitecoreai-migration-playbook`](skills/sitecoreai-migration-playbook/SKILL.md) | Start here. Plans and sequences a migration spanning site, templates, components, content, and code; names the XP features with no SitecoreAI equivalent. |
+| [`sitecoreai-site-migration`](skills/sitecoreai-site-migration/SKILL.md) | Site and tenant definition, information architecture, navigation, routes, site settings, dictionary, redirects. |
+| [`sitecoreai-template-migration`](skills/sitecoreai-template-migration/SKILL.md) | Data templates, base and branch templates, standard values, insert options, field mapping, the SXA Page + `_Designable` inheritance requirement. |
+| [`sitecoreai-component-migration`](skills/sitecoreai-component-migration/SKILL.md) | XP renderings and SXA variants rebuilt as Json Renderings plus Content SDK React components, including renderings reused across mixed datasource shapes. |
+| [`sitecoreai-content-migration`](skills/sitecoreai-content-migration/SKILL.md) | Page items, datasources, media, taxonomy, language versions; shared vs. per-page datasource placement; Sitecore CLI serialization. |
+| [`sitecoreai-code-migration`](skills/sitecoreai-code-migration/SKILL.md) | Classifying MVC controllers, repositories, pipelines, integrations, and SPE scripts into rebuild / redesign / externalize / drop. |
 
 ### Authoring — building in SitecoreAI
 
 | Skill | Covers |
 | --- | --- |
-| [`sitecore-page-design-setup`](skills/sitecore-page-design-setup/SKILL.md) | Page Designs, Partial Designs, TemplatesMapping encoding, `p:before` / `p:after` positioning, headless placeholder keys. The platform quirks that burn the most time. Useful during a migration and long after one. |
+| [`sitecoreai-page-design-setup`](skills/sitecoreai-page-design-setup/SKILL.md) | Page Designs, Partial Designs, TemplatesMapping encoding, `p:before` / `p:after` positioning, headless placeholder keys. The platform quirks that burn the most time. Useful during a migration and long after one. |
 
 ### Project review — auditing a SitecoreAI build
 
 | Skill | Covers |
 | --- | --- |
-| [`sitecore-content-items`](skills/sitecore-content-items/SKILL.md) | Content hierarchy, items per node, version accumulation, broken links, validation rules, aliases and redirects. |
-| [`sitecore-data-templates`](skills/sitecore-data-templates/SKILL.md) | Template naming, inheritance, duplicate fields, standard values, insert options, field sources, RTE profiles. |
-| [`sitecore-media`](skills/sitecore-media/SKILL.md) | Media library storage, folder hierarchy, naming conventions, upload defaults. |
-| [`sitecore-security`](skills/sitecore-security/SKILL.md) | Roles vs. per-user rights, inheritance breaking, passwords, admin accounts, upload restrictions, `SecurityDisabler`, secret storage. |
-| [`sitecore-workflow`](skills/sitecore-workflow/SKILL.md) | Workflow assignment, role-gated transitions and publishing, notification volume, state count, final state. |
-| [`sitecore-presentation-layer`](skills/sitecore-presentation-layer/SKILL.md) | Layout count, static vs. dynamic binding, Placeholder Settings, rendering item configuration, image parameters. |
-| [`sitecore-solution-code`](skills/sitecore-solution-code/SKILL.md) | Hard-coded paths, GUIDs, media URLs, copy and language; direct database access; naming consistency; Helix-style organization. |
-| [`sitecore-frontend-performance`](skills/sitecore-frontend-performance/SKILL.md) | Core Web Vitals, bundling and code splitting, script strategy, CDN, CSS, compression, caching, WCAG 2.1 AA. |
-| [`sitecore-headless-performance`](skills/sitecore-headless-performance/SKILL.md) | ISR vs. SSG vs. SSR per page type, keeping personalized components out of static cache, heavy server-side work. |
-| [`sitecore-headless-configuration`](skills/sitecore-headless-configuration/SKILL.md) | Connected mode, API keys and impersonation, site name, GraphQL endpoint, Edge context ID, Node and SDK versions. |
-| [`sitecore-headless-graphql`](skills/sitecore-headless-graphql/SKILL.md) | Edge vs. CM endpoints, schema stitching, mutation exposure, authorization, GraphiQL, query bombs, caching. |
-| [`sitecore-headless-editor-experience`](skills/sitecore-headless-editor-experience/SKILL.md) | Browser globals in SSR, libraries that break in the Pages iframe, optional layout service fields, custom error pages. |
-| [`sitecore-headless-project-structure`](skills/sitecore-headless-project-structure/SKILL.md) | Component organization, router links, placeholder naming, media handling, null-safe fields, content resolvers. |
-| [`sitecore-sxa-page-structure`](skills/sitecore-sxa-page-structure/SKILL.md) | Layout in Partial Designs, Available Renderings curation, placeholder restrictions, presentation off Standard Values. |
-| [`sitecore-sxa-renderings`](skills/sitecore-sxa-renderings/SKILL.md) | Json vs. controller renderings, keeping Available Renderings / Placeholder Settings / `component-map` in agreement, variants, SXA modules. |
-| [`sitecore-sxa-theming`](skills/sitecore-sxa-theming/SKILL.md) | Platform theme integrity, Component Styles, orphaned styles, styles folder organization. |
-| [`sitecore-sxa-multisite`](skills/sitecore-sxa-multisite/SKILL.md) | Shared site as the style and design container, delegated areas, blueprint sites, authoring in the target language. |
-| [`sitecore-sxa-datasources-media`](skills/sitecore-sxa-datasources-media/SKILL.md) | Datasource naming and foldering, per-page vs. shared Data locations, orphaned datasource cleanup. |
-| [`sitecore-sxa-performance`](skills/sitecore-sxa-performance/SKILL.md) | Renderings per page, content testing access, CM preview caching, asset bundling in headless sites. |
+| [`sitecoreai-content-items`](skills/sitecoreai-content-items/SKILL.md) | Content hierarchy, items per node, version accumulation, broken links, validation rules, aliases and redirects. |
+| [`sitecoreai-data-templates`](skills/sitecoreai-data-templates/SKILL.md) | Template naming, inheritance, duplicate fields, standard values, insert options, field sources, RTE profiles. |
+| [`sitecoreai-media`](skills/sitecoreai-media/SKILL.md) | Media library storage, folder hierarchy, naming conventions, upload defaults. |
+| [`sitecoreai-security`](skills/sitecoreai-security/SKILL.md) | Roles vs. per-user rights, inheritance breaking, passwords, admin accounts, upload restrictions, `SecurityDisabler`, secret storage. |
+| [`sitecoreai-workflow`](skills/sitecoreai-workflow/SKILL.md) | Workflow assignment, role-gated transitions and publishing, notification volume, state count, final state. |
+| [`sitecoreai-presentation-layer`](skills/sitecoreai-presentation-layer/SKILL.md) | Layout count, static vs. dynamic binding, Placeholder Settings, rendering item configuration, image parameters. |
+| [`sitecoreai-solution-code`](skills/sitecoreai-solution-code/SKILL.md) | Hard-coded paths, GUIDs, media URLs, copy and language; direct database access; naming consistency; Helix-style organization. |
+| [`sitecoreai-frontend-performance`](skills/sitecoreai-frontend-performance/SKILL.md) | Core Web Vitals, bundling and code splitting, script strategy, CDN, CSS, compression, caching, WCAG 2.1 AA. |
+| [`sitecoreai-headless-performance`](skills/sitecoreai-headless-performance/SKILL.md) | ISR vs. SSG vs. SSR per page type, keeping personalized components out of static cache, heavy server-side work. |
+| [`sitecoreai-headless-configuration`](skills/sitecoreai-headless-configuration/SKILL.md) | Connected mode, API keys and impersonation, site name, GraphQL endpoint, Edge context ID, Node and SDK versions. |
+| [`sitecoreai-headless-graphql`](skills/sitecoreai-headless-graphql/SKILL.md) | Edge vs. CM endpoints, schema stitching, mutation exposure, authorization, GraphiQL, query bombs, caching. |
+| [`sitecoreai-headless-editor-experience`](skills/sitecoreai-headless-editor-experience/SKILL.md) | Browser globals in SSR, libraries that break in the Pages iframe, optional layout service fields, custom error pages. |
+| [`sitecoreai-headless-project-structure`](skills/sitecoreai-headless-project-structure/SKILL.md) | Component organization, router links, placeholder naming, media handling, null-safe fields, content resolvers. |
+| [`sitecoreai-sxa-page-structure`](skills/sitecoreai-sxa-page-structure/SKILL.md) | Layout in Partial Designs, Available Renderings curation, placeholder restrictions, presentation off Standard Values. |
+| [`sitecoreai-sxa-renderings`](skills/sitecoreai-sxa-renderings/SKILL.md) | Json vs. controller renderings, keeping Available Renderings / Placeholder Settings / `component-map` in agreement, variants, SXA modules. |
+| [`sitecoreai-sxa-theming`](skills/sitecoreai-sxa-theming/SKILL.md) | Platform theme integrity, Component Styles, orphaned styles, styles folder organization. |
+| [`sitecoreai-sxa-multisite`](skills/sitecoreai-sxa-multisite/SKILL.md) | Shared site as the style and design container, delegated areas, blueprint sites, authoring in the target language. |
+| [`sitecoreai-sxa-datasources-media`](skills/sitecoreai-sxa-datasources-media/SKILL.md) | Datasource naming and foldering, per-page vs. shared Data locations, orphaned datasource cleanup. |
+| [`sitecoreai-sxa-performance`](skills/sitecoreai-sxa-performance/SKILL.md) | Renderings per page, content testing access, CM preview caching, asset bundling in headless sites. |
 
 ## Conventions
 
@@ -124,8 +146,8 @@ skill, put its vocabulary in the description.
 Skills stay within the spec's progressive-disclosure budget — under 500 lines and roughly 5,000
 tokens — so most are a single self-contained `SKILL.md`. Detail that is genuinely optional, or
 specific to one reference implementation rather than to the platform, goes in a `references/` file
-the agent loads only if it needs it. `sitecore-migration-playbook` does this with
-[its reference repo layout](skills/sitecore-migration-playbook/references/reference-repo-layout.md):
+the agent loads only if it needs it. `sitecoreai-migration-playbook` does this with
+[its reference repo layout](skills/sitecoreai-migration-playbook/references/reference-repo-layout.md):
 SKILL.md states the two-root serialization split as a rule, and the worked example with concrete
 repo, site, and MCP server names sits alongside it. Skill bodies otherwise avoid naming any
 particular project, so they apply to yours.
@@ -133,14 +155,32 @@ particular project, so they apply to yours.
 ## Validation
 
 ```bash
-node scripts/validate-skills.mjs
+npm run validate
 ```
 
-Checks every skill against the specification: `name` character rules, length, and directory match;
+`npm run validate` runs two checks. The first checks every skill against the specification: `name` character rules, length, and directory match;
 `description` presence and the 1024-character limit; `compatibility` length; `metadata` shape;
 unknown top-level frontmatter keys; the 500-line / 5,000-token progressive-disclosure budget; broken
-relative file references; and duplicate names. Zero dependencies, and it runs on every push via
-[GitHub Actions](.github/workflows/validate.yml).
+relative file references; and duplicate names. The second checks the packaging manifests: valid
+JSON, required plugin and marketplace fields, that the marketplace entry matches `plugin.json`, and
+that the version agrees across `plugin.json`, `marketplace.json`, and `package.json`. Zero
+dependencies, and both run on every push via [GitHub Actions](.github/workflows/validate.yml),
+along with a smoke test of the installer.
+
+## Releases
+
+Versions are git tags, and `plugin.json` / `marketplace.json` carry the same number.
+
+To cut a release:
+
+1. Update `version` in `.claude-plugin/plugin.json` and `.claude-plugin/marketplace.json`
+   (both, and keep them identical) and in `package.json`.
+2. `node scripts/validate-skills.mjs`
+3. Commit, then `git tag vX.Y.Z && git push --follow-tags`
+
+Bump the minor version when skills are added or renamed, the patch version for content fixes.
+Renaming or removing a skill is breaking for anyone who installed it manually — call it out in the
+release notes.
 
 ## Contributing
 
