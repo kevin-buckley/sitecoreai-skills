@@ -16,6 +16,19 @@ const ROOT = resolve(dirname(fileURLToPath(import.meta.url)), "..");
 const WARN_ONLY = process.argv.includes("--warn");
 const TIMEOUT_MS = 30_000;
 const CONCURRENCY = 4;
+const RETRIES = 2;
+
+// Hosts that only ever appear as illustrative examples.
+const SKIP_HOSTS = [/(^|\.)localhost$/i, /^127\./, /(^|\.)example\.(com|org|net)$/i];
+
+// A bare fetch gets bot-blocked by several docs hosts, which looks identical to
+// rot if you only read the status code. Ask like a browser.
+const HEADERS = {
+  "user-agent":
+    "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/125.0 Safari/537.36",
+  accept: "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
+  "accept-language": "en-US,en;q=0.9",
+};
 
 // Collect every markdown file under skills/, plus the top-level docs.
 function walk(dir, out = []) {
@@ -45,7 +58,17 @@ for (const file of files) {
   }
 }
 
-const urls = [...found.keys()].sort();
+const urls = [...found.keys()]
+  .filter((u) => {
+    let host;
+    try {
+      host = new URL(u).hostname;
+    } catch {
+      return false;
+    }
+    return !SKIP_HOSTS.some((re) => re.test(host));
+  })
+  .sort();
 if (urls.length === 0) {
   console.log("No external links found.");
   process.exit(0);
@@ -53,21 +76,32 @@ if (urls.length === 0) {
 
 console.log(`Checking ${urls.length} unique link(s) across ${files.length} file(s)...\n`);
 
-async function check(url) {
+async function attempt(url, method) {
   const ctrl = new AbortController();
   const timer = setTimeout(() => ctrl.abort(), TIMEOUT_MS);
   try {
-    // Some docs hosts reject HEAD, so fall back to GET.
-    let res = await fetch(url, { redirect: "follow", signal: ctrl.signal, method: "HEAD" });
-    if (res.status === 405 || res.status === 501) {
-      res = await fetch(url, { redirect: "follow", signal: ctrl.signal });
-    }
+    const res = await fetch(url, { redirect: "follow", signal: ctrl.signal, method, headers: HEADERS });
     return { url, status: res.status, final: res.url };
   } catch (e) {
     return { url, status: 0, error: e.name === "AbortError" ? "timeout" : e.message };
   } finally {
     clearTimeout(timer);
   }
+}
+
+async function check(url) {
+  let last;
+  for (let i = 0; i <= RETRIES; i++) {
+    // Some hosts reject HEAD outright, so fall back to GET.
+    last = await attempt(url, "HEAD");
+    if (last.status === 405 || last.status === 501 || last.status === 0) {
+      last = await attempt(url, "GET");
+    }
+    // Retry only what might be transient.
+    if (last.status !== 0 && last.status !== 429 && last.status < 500) return last;
+    if (i < RETRIES) await new Promise((r) => setTimeout(r, 1500 * (i + 1)));
+  }
+  return last;
 }
 
 // Small worker pool so we do not hammer a docs host.
@@ -85,8 +119,10 @@ results.sort((a, b) => a.url.localeCompare(b.url));
 
 const dead = [];
 const moved = [];
+const blocked = [];
 for (const r of results) {
-  if (r.status === 0) dead.push({ ...r, reason: r.error });
+  if (r.status === 403 || r.status === 429) blocked.push(r);
+  else if (r.status === 0) dead.push({ ...r, reason: r.error });
   else if (r.status >= 400) dead.push({ ...r, reason: `HTTP ${r.status}` });
   else if (r.final && r.final !== r.url) moved.push(r);
 }
@@ -100,6 +136,12 @@ if (moved.length) {
   console.log("");
 }
 
+if (blocked.length) {
+  console.log(`Blocked (${blocked.length}) — bot protection refused us, NOT evidence the page is gone:`);
+  for (const r of blocked) console.log(`  ? ${r.url}  [HTTP ${r.status}]`);
+  console.log("");
+}
+
 if (dead.length) {
   console.log(`Dead (${dead.length}):`);
   for (const r of dead) {
@@ -109,7 +151,9 @@ if (dead.length) {
   console.log("");
 }
 
-const ok = results.length - dead.length;
-console.log(`${ok}/${results.length} link(s) reachable.`);
+const ok = results.length - dead.length - blocked.length;
+console.log(
+  `${ok}/${results.length} reachable, ${blocked.length} blocked (inconclusive), ${dead.length} dead.`,
+);
 
 if (dead.length && !WARN_ONLY) process.exit(1);

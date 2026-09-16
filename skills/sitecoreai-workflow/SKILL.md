@@ -6,8 +6,12 @@ description: >-
   email notification volume, workflow simplicity and state count, and the presence of a clear
   final publishable state. Use when reviewing or auditing content workflow or publishing
   governance in SitecoreAI, designing an approval process, or when the user asks about workflow
-  states, the workbox, or who is allowed to publish to Experience Edge. Common phrasings: workflow
-  audit, publishing review, workflow security, notification check.
+  states, the workbox, or who is allowed to publish to Experience Edge. Also use before publishing
+  an item, or when a publish reported success but the content never reached Edge - publishing
+  silently skips items not in a final workflow state. Covers the pre-publish checks: __Workflow,
+  __Workflow state, the Final checkbox, Publishable From/To, and targets. Common phrasings:
+  workflow audit, publishing review, item not publishing, content not on the site, publish did
+  nothing, check workflow state, publishItem.
 license: Apache-2.0
 metadata:
   display-name: "Workflow"
@@ -57,6 +61,69 @@ Use this skill to audit workflow configuration in a SitecoreAI SXA Headless proj
 **Issue indicators:** All editors have publish access, content published without review, workflow bypassed via direct publish.
 **Recommendation:** Restrict publish access to Publisher/Admin roles. Content editors submit through workflow. In SitecoreAI, publishing pushes to Experience Edge — restrict who can trigger this.
 
+## Before publishing an item: check its state first
+
+Publishing in SitecoreAI **skips** items it cannot publish rather than failing. The publish reports
+success, the item never reaches Experience Edge, and nothing tells you why. Check these before
+publishing, and check them again when a publish "worked" but the content is not live.
+
+### The workflow gate
+
+> "If an item is in a workflow, even if you have selected the Publishable check box in the
+> Publishing Settings dialog box, the item isn't publishable until it reaches the final workflow
+> state."
+
+Two fields carry this, both on the item:
+
+- `__Workflow` — which workflow the item is in. Empty means no workflow gate applies.
+- `__Workflow state` — the state it currently sits in.
+
+Being in the *last* state is not the same as being in a **final** state. "Final" is a checkbox on
+the workflow state item itself. A workflow whose approved state does not have that box ticked will
+accept content all the way through and still never publish anything — a common cause of "approved
+content is not on the site."
+
+Publishing a parent does not drag a non-final child along with it. Each item is gated on its own.
+
+### The other gates
+
+Even outside workflow, an item can be silently unpublishable:
+
+| Gate | Where | Fails when |
+| --- | --- | --- |
+| Publishable | Publishing Settings, item **and** version level | Unticked on the version you expect to go live |
+| Publishable From / To | Publishing Settings | Now is outside the range |
+| Publishing targets | Publishing Settings, Targets tab | The target you are publishing to is excluded |
+| Language version | Item | No version exists in the language being published |
+
+Version-level beats item-level: an item marked publishable can still have the newest version marked
+unpublishable, so the site keeps serving an older one.
+
+### Pre-publish checklist
+
+1. Read `__Workflow`. No workflow means skip to step 4.
+2. Read `__Workflow state`.
+3. Confirm that state's **Final** checkbox is ticked. If not, the item cannot publish, no matter
+   what else is set.
+4. Confirm the version you want live is marked Publishable, and that Publishable From / To includes
+   now.
+5. Confirm the target is not excluded on the Targets tab.
+6. Confirm a version exists in the language you are publishing.
+7. Publish, then verify against Experience Edge rather than trusting the publish result — query the
+   Edge endpoint for the item, or load the page on the rendering host.
+
+### Publishing programmatically
+
+The Authoring and Management GraphQL API (`/sitecore/api/authoring/graphql/v1/`) exposes a
+`publishItem` mutation, and item queries expose workflow information. Read the workflow state and
+confirm the final-state gate **before** calling it — the mutation will not tell you that an item was
+skipped.
+
+The API's full schema is not enumerated in the docs; check the exact argument and return shape in
+the GraphQL IDE at `/sitecore/api/authoring/graphql/playground/` for your instance before relying on
+it.
+
 ## References
 
-- https://doc.sitecore.com/xmc/en/developers/xm-cloud/workflows.html
+- https://doc.sitecore.com/xmc/en/developers/xm-cloud/workflow.html
+- https://doc.sitecore.com/xmc/en/users/xm-cloud/set-up-publishing-restrictions-for-an-item.html
