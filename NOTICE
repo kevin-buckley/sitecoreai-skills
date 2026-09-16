@@ -1,0 +1,17 @@
+Sitecore Skills
+Copyright 2026 Kevin Buckley
+
+Licensed under the Apache License, Version 2.0. See LICENSE.
+
+------------------------------------------------------------------------------
+Provenance
+------------------------------------------------------------------------------
+
+The skills in this repository were first authored as the bundled skills manager
+in https://github.com/kevin-buckley/vibe-sitecore, and were extracted here and
+restructured to follow the Agent Skills specification (https://agentskills.io).
+
+vibe-sitecore is a fork of https://github.com/Antonytm/mcp-sitecore-server,
+Copyright 2025 Anton Tishchenko, also licensed under the Apache License 2.0.
+No code from that project is included in this repository — only the Sitecore
+XM Cloud skill content, which was authored in the vibe-sitecore fork.
