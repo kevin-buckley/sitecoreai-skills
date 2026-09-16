@@ -55,5 +55,5 @@ Use this skill to audit editor experience support in a SitecoreAI Content SDK re
 
 ## References
 
-- https://doc.sitecore.com/xmc/en/developers/xm-cloud/editing-integration.html
-- https://doc.sitecore.com/xmc/en/developers/xm-cloud/error-handling.html
+- https://doc.sitecore.com/sai/en/developers/sitecoreai/environment-editing-hosts-and-rendering-hosts/the-different-types-of-editing-hosts-in-sitecoreai.html
+- https://doc.sitecore.com/sai/en/developers/sitecoreai/content-modeling-and-presentation/sitecoreai-for-developers/content-editor-items/sites/configure-a-custom-static-error-page.html

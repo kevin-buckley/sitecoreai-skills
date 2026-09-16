@@ -75,5 +75,5 @@ Use this skill to audit SXA page structure patterns in a SitecoreAI SXA Headless
 
 ## References
 
-- https://doc.sitecore.com/xmc/en/developers/xm-cloud/page-designs-and-partial-designs.html
-- https://doc.sitecore.com/xmc/en/developers/xm-cloud/placeholder-settings.html
+- https://doc.sitecore.com/sai/en/users/sitecoreai/build-pages/building-page-templates-and-branches/work-with-page-designs.html
+- https://doc.sitecore.com/sai/en/developers/sitecoreai/content-modeling-and-presentation/sitecoreai-for-developers/content-editor-items/layout/set-placeholder-restrictions.html

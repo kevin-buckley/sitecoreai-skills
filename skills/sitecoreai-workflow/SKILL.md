@@ -125,5 +125,5 @@ it.
 
 ## References
 
-- https://doc.sitecore.com/xmc/en/developers/xm-cloud/workflow.html
-- https://doc.sitecore.com/xmc/en/users/xm-cloud/set-up-publishing-restrictions-for-an-item.html
+- https://doc.sitecore.com/sai/en/developers/sitecoreai/content-modeling-and-presentation/workflow.html
+- https://doc.sitecore.com/sai/en/users/sitecoreai/manage-content/content-editor/publishing/set-up-publishing-restrictions-for-an-item.html

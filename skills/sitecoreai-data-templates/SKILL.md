@@ -140,5 +140,5 @@ Use this skill to audit data template design in a SitecoreAI SXA Headless projec
 
 ## References
 
-- https://doc.sitecore.com/xmc/en/developers/xm-cloud/data-templates.html
-- https://doc.sitecore.com/xmc/en/developers/xm-cloud/standard-values.html
+- https://doc.sitecore.com/sai/en/developers/sitecoreai/content-modeling-and-presentation/data-templates.html
+- https://doc.sitecore.com/sai/en/developers/sitecoreai/content-modeling-and-presentation/data-templates/standard-values-for-data-template-fields/configure-standard-values.html

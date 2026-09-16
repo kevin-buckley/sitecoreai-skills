@@ -98,4 +98,4 @@ Use this skill to audit security configuration in a SitecoreAI SXA Headless proj
 
 ## References
 
-- https://doc.sitecore.com/xmc/en/developers/xm-cloud/security-overview.html
+- https://doc.sitecore.com/sai/en/developers/sitecoreai/content-modeling-and-presentation/sitecoreai-for-developers/content-editor-items/security.html

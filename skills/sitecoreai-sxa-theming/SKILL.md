@@ -47,5 +47,5 @@ Use this skill to audit SXA theming practices in a SitecoreAI SXA Headless proje
 
 ## References
 
-- https://doc.sitecore.com/xmc/en/developers/xm-cloud/themes.html
-- https://doc.sitecore.com/xmc/en/developers/xm-cloud/styles.html
+- https://doc.sitecore.com/sai/en/users/sitecoreai/design-components/components/creating-your-styles-library/compose-a-theme.html
+- https://doc.sitecore.com/sai/en/developers/sitecoreai/content-modeling-and-presentation/sitecoreai-for-developers/content-editor-items/sites/add-a-style-for-a-rendering.html

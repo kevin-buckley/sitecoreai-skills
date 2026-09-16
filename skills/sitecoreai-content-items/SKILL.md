@@ -85,4 +85,4 @@ Use this skill to audit content item structure and hygiene in a SitecoreAI SXA H
 
 ## References
 
-- https://doc.sitecore.com/xmc/en/developers/xm-cloud/content-architecture.html
+- https://doc.sitecore.com/sai/en/developers/sitecoreai/content-modeling-and-presentation.html

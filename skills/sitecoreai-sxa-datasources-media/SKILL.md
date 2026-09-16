@@ -48,4 +48,4 @@ Use this skill to audit datasource and media organization in a SitecoreAI SXA He
 
 ## References
 
-- https://doc.sitecore.com/xmc/en/developers/xm-cloud/data-sources.html
+- https://doc.sitecore.com/sai/en/developers/sitecoreai/content-modeling-and-presentation/data-sources.html

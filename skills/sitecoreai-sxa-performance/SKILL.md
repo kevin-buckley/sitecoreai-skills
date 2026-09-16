@@ -47,4 +47,4 @@ Use this skill to audit SXA performance practices in a SitecoreAI SXA Headless p
 
 ## References
 
-- https://doc.sitecore.com/xmc/en/developers/xm-cloud/performance-optimization.html
+- https://doc.sitecore.com/sai/en/developers/sitecoreai/content-modeling-and-presentation/sitecoreai-for-developers/best-practices/recommendations--enhancing-sxa-performance.html

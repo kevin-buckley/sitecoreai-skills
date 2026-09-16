@@ -60,5 +60,5 @@ Use this skill to audit headless/Content SDK rendering host configuration in a S
 
 ## References
 
-- https://doc.sitecore.com/xmc/en/developers/xm-cloud/getting-started-with-content-sdk-for-next-js.html
-- https://doc.sitecore.com/xmc/en/developers/xm-cloud/environment-variables.html
+- https://doc.sitecore.com/sai/en/developers/sitecoreai/getting-started-with-sitecoreai.html
+- https://doc.sitecore.com/sai/en/developers/sitecoreai/deploying-sitecoreai/deploy-app/manage-an-environment/environment-variables.html

@@ -74,18 +74,16 @@ the entire triggering burden. Follow
   references/ for details". The validator warns when a body exceeds the budget.
 - **Prefer a default over a menu.** Pick the recommended approach and mention alternatives briefly.
 - **Cross-reference by full name** (`sitecoreai-page-design-setup`, not `page-design-setup`).
-- **Link to `doc.sitecore.com/xmc/...` URLs, and leave them alone.** Sitecore now also publishes
-  SitecoreAI docs under `doc.sitecore.com/sai/en/developers/sitecoreai/...`, so the `/xmc/` paths
-  look stale. They are not: they still resolve and already serve SitecoreAI-branded content. The
-  `/sai/` tree is a *restructure*, not a rename — pages sit under per-section segments and some were
-  re-slugged (`workflows.html` -> `workflow.html`, `language-support.html` ->
-  `working-with-languages.html`). A find-and-replace across the `/xmc/` links produces 404s, verified
-  against `themes.html`. If you move a link, open that exact URL in a browser first.
-
-  **CI cannot check these for you.** `doc.sitecore.com` returns HTTP 403 to every automated request,
-  so `scripts/check-links.mjs` reports its links as *blocked*, not dead, and does not fail the build
-  on them. Blocked means unverified, not healthy — Sitecore doc links are the one set you have to
-  eyeball by hand.
+- **Link to `doc.sitecore.com/sai/...` URLs, and verify each one in a browser.** Sitecore moved its
+  docs from `/xmc/` to `/sai/` for the SitecoreAI rebrand. This was not a rename: pages were
+  re-sectioned *and* re-slugged (`workflows.html` -> `workflow.html`, `language-support.html` ->
+  `working-with-languages.html`), and several have no direct equivalent. The old `/xmc/` URLs still
+  redirect, but the redirect only swaps the prefix, so it lands on a path that does not exist and
+  you get a 404. All 27 have been remapped to verified `/sai/` targets.
+- **CI cannot check `doc.sitecore.com` for you.** It returns HTTP 403 to every automated request, so
+  `scripts/check-links.mjs` reports its links as *blocked* rather than dead and will not fail the
+  build on them. Blocked means unverified, not healthy. To actually check one, open it in a real
+  browser — a headless browser driving the page works, a bare `fetch` does not.
 
 ## Scope
 

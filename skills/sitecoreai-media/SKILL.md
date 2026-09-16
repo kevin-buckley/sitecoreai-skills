@@ -48,4 +48,4 @@ Use this skill to audit media library organization in a SitecoreAI SXA Headless 
 
 ## References
 
-- https://doc.sitecore.com/xmc/en/developers/xm-cloud/media-library.html
+- https://doc.sitecore.com/sai/en/users/sitecoreai/manage-media/modern-media-library.html

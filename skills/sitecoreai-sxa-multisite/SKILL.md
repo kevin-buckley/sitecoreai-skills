@@ -60,5 +60,5 @@ Use this skill to audit multisite architecture and content sharing in a Sitecore
 
 ## References
 
-- https://doc.sitecore.com/xmc/en/developers/xm-cloud/multisite-architecture.html
-- https://doc.sitecore.com/xmc/en/developers/xm-cloud/language-support.html
+- https://doc.sitecore.com/sai/en/developers/sitecoreai/content-modeling-and-presentation/sitecoreai-for-developers/content-editor-items/site-collections.html
+- https://doc.sitecore.com/sai/en/developers/sitecoreai/content-modeling-and-presentation/working-with-languages.html

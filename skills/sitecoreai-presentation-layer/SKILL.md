@@ -60,5 +60,5 @@ Use this skill to audit presentation layer configuration in a SitecoreAI SXA Hea
 
 ## References
 
-- https://doc.sitecore.com/xmc/en/developers/xm-cloud/presentation.html
-- https://doc.sitecore.com/xmc/en/developers/xm-cloud/placeholder-settings.html
+- https://doc.sitecore.com/sai/en/developers/sitecoreai/content-modeling-and-presentation/sitecoreai-for-developers/content-editor-items/layout.html
+- https://doc.sitecore.com/sai/en/developers/sitecoreai/content-modeling-and-presentation/sitecoreai-for-developers/content-editor-items/layout/set-placeholder-restrictions.html

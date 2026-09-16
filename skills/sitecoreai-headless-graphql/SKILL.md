@@ -72,5 +72,5 @@ Use this skill to audit GraphQL configuration and security in a SitecoreAI SXA H
 
 ## References
 
-- https://doc.sitecore.com/xmc/en/developers/xm-cloud/graphql-overview.html
-- https://doc.sitecore.com/xmc/en/developers/xm-cloud/experience-edge-for-xm.html
+- https://doc.sitecore.com/sai/en/developers/sitecoreai/content-modeling-and-presentation/sitecore-authoring-and-management-graphql-api.html
+- https://doc.sitecore.com/sai/en/developers/sitecoreai/experience-edge.html

@@ -124,5 +124,5 @@ Use this skill to audit rendering usage, rendering variants, and development pra
 
 ## References
 
-- https://doc.sitecore.com/xmc/en/developers/xm-cloud/renderings.html
-- https://doc.sitecore.com/xmc/en/developers/xm-cloud/available-renderings.html
+- https://doc.sitecore.com/sai/en/developers/sitecoreai/content-modeling-and-presentation/sitecoreai-for-developers/best-practices/recommendations--using-renderings.html
+- https://doc.sitecore.com/sai/en/users/sitecoreai/manage-content/content-editor/creating-and-editing-items/editing/set-which-renderings-are-allowed-in-a-placeholder.html

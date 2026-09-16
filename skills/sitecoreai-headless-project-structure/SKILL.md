@@ -80,5 +80,5 @@ Use this skill to audit the rendering host project structure and placeholder pat
 
 ## References
 
-- https://doc.sitecore.com/xmc/en/developers/xm-cloud/placeholders.html
-- https://doc.sitecore.com/xmc/en/developers/xm-cloud/field-types-and-rendering.html
+- https://doc.sitecore.com/sai/en/developers/sitecoreai/content-modeling-and-presentation/sitecoreai-for-developers/content-editor-items/components/use-dynamic-placeholders-in-components.html
+- https://doc.sitecore.com/sai/en/developers/sitecoreai/content-modeling-and-presentation/data-templates/data-template-fields/the-data-template-field-types.html
