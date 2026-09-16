@@ -70,6 +70,13 @@ the entire triggering burden. Follow
   references/ for details". The validator warns when a body exceeds the budget.
 - **Prefer a default over a menu.** Pick the recommended approach and mention alternatives briefly.
 - **Cross-reference by full name** (`sitecore-page-design-setup`, not `page-design-setup`).
+- **Link to `doc.sitecore.com/xmc/...` URLs, and leave them alone.** Sitecore now also publishes
+  SitecoreAI docs under `doc.sitecore.com/sai/en/developers/sitecoreai/...`, so the `/xmc/` paths
+  look stale. They are not: they still resolve and already serve SitecoreAI-branded content. The
+  `/sai/` tree is a *restructure*, not a rename — pages sit under per-section segments and some were
+  re-slugged (`workflows.html` -> `workflow.html`, `language-support.html` ->
+  `working-with-languages.html`). A find-and-replace across the `/xmc/` links produces 404s, verified
+  against `themes.html`. If you move a link, verify that exact URL loads first.
 
 ## Scope
 

@@ -44,7 +44,7 @@ Use this skill to audit multisite architecture and content sharing in a Sitecore
 **Severity:** Minor
 **What to verify:** For multi-market rollouts, a master site template exists that can be cloned to quickly spin up new sites with the correct structure, templates, and base content.
 **Issue indicators:** New sites built from scratch each time, with inconsistent structures.
-**Recommendation:** Create a site template with scaffolding scripts that produce consistent new sites. In SitecoreAI, use the Site Template mechanism (ExecuteScript + Headless Site Setup).
+**Recommendation:** Create a site template with scaffolding scripts that produce consistent new sites. In SitecoreAI, use the Site Template mechanism (ExecuteScript + Headless Site Setup). Roll new sites out from the Sites dashboard so the scaffolding actually runs — there is no create-site API, and a serialized site tree pushed with `dotnet sitecore ser push` skips module installation and site collection assignment entirely. See `sitecore-site-migration` for the full rule.
 
 ### Consider defining Page Designs and Partial Designs in the shared site
 **Severity:** Minor
