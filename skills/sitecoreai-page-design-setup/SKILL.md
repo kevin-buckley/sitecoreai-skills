@@ -3,13 +3,15 @@ name: sitecoreai-page-design-setup
 description: >-
   Wire SitecoreAI (formerly XM Cloud) Page Designs, Partial Designs, TemplatesMapping, and
   headless placeholders, including the non-obvious platform quirks that burn time: asymmetric
-  TemplatesMapping URL encoding, why renderings placed on a Page Design's own Final Renderings
-  never render, Partial Design ordering with p:before and p:after, the canonical headless-header /
-  headless-main / headless-footer placeholder keys, and the Final Renderings device ID. Use when
-  binding a template to a page design, composing or ordering partial designs, positioning a
-  rendering, building a shared sub-page architecture, or debugging a rendering that does not
-  appear on the page. Common phrasings: templates mapping, headless sxa placeholder, sub page
-  design, shared page design, partial design position, page design final renderings.
+  TemplatesMapping URL encoding, why an empty Partial Design Signature renders nothing at all,
+  why renderings placed on a Page Design's own Final Renderings never render, Available
+  Renderings gating the component palette, Partial Design ordering with p:before and p:after,
+  the canonical headless-header / headless-main / headless-footer placeholder keys, and the
+  device ID. Use when binding a template to a page design, composing or ordering partial designs,
+  positioning a rendering, building a shared sub-page architecture, or debugging a rendering that
+  does not appear on the page. Common phrasings: templates mapping, headless sxa placeholder, sub
+  page design, shared page design, partial design position, partial design signature, sxa- empty
+  placeholder, page design final renderings.
 license: Apache-2.0
 metadata:
   display-name: "Page Design & Partial Design Setup"
@@ -24,7 +26,7 @@ Use this skill when binding templates to Page Designs, composing Partial Designs
 ## Mental Model
 
 - A **Page Design** is a composition item that picks up presentation from one or more **Partial Designs** via its `PartialDesigns` multilist field. Editors do NOT drop renderings onto the Page Design itself.
-- A **Partial Design** owns real renderings on its `__Final Renderings` field. Those renderings are what actually merge into a page's layout.
+- A **Partial Design** owns real renderings on its `__Renderings` field (shared, `{F1A1FE9E-A60C-4DDB-A3A0-BB5B29FE732E}`) — not `__Final Renderings`. Those renderings are what actually merge into a page's layout. It also needs a non-empty **`Signature`** (see below) or nothing it owns will render.
 - A **template** is bound to a Page Design via the Page Designs folder's `TemplatesMapping` field (see encoding below). Every page derived from that template inherits the design.
 - A **Sub Page template** plus a single SubPage Page Design is the standard pattern for a family of pages that share chrome but diverge in body content.
 
@@ -44,10 +46,43 @@ If you place a rendering directly on the Page Design item's `__Final Renderings`
 **Correct pattern:**
 
 1. Create a Partial Design item under the site's `/Presentation/Partial Designs` folder.
-2. Place the rendering on THAT Partial Design's `__Final Renderings`.
-3. Reference the Partial Design from the Page Design's `PartialDesigns` field (pipe-delimited multilist of GUIDs or paths).
+2. Place the rendering on THAT Partial Design's `__Renderings`.
+3. Reference the Partial Design from the Page Design's `PartialDesigns` field (pipe-delimited multilist of GUIDs or paths, field `{0966B999-0D0E-4278-ACC9-9DA69D461FE6}`).
 
 Only renderings reachable through the `PartialDesigns` chain are merged onto the final page.
+
+## Gotcha: an empty Partial Design `Signature` renders nothing, silently
+
+A Partial Design does not drop its renderings straight into the page placeholder. The merge inserts a `PartialDesignDynamicPlaceholder` into the target placeholder, and that component's renderings live in a **nested placeholder named `sxa-<Signature>`**. The signature comes from the Partial Design's `Signature` field, `{55FAAE90-3BBA-4F7F-96FE-13C3F40055FF}`.
+
+A healthy merged layout looks like this:
+
+```
+headless-header -> PartialDesignDynamicPlaceholder  sig="sxa-header"  -> RichText, Navigation
+headless-footer -> PartialDesignDynamicPlaceholder  sig="sxa-footer"  -> Container
+```
+
+If `Signature` is empty the placeholder still appears, but as `sig="sxa-"` with no children:
+
+```
+headless-main   -> PartialDesignDynamicPlaceholder  sig="sxa-"        -> (nothing)
+```
+
+The page renders its other partials fine, there is no error anywhere, and the body is simply missing. This is the same class of silent failure as the `TemplatesMapping` encoding below, and it is easy to misread as a broken rendering or a bad component registration.
+
+When hand-authoring the item, confirm you have the right field: `Signature` is `{55FAAE90-...}`. In a serialized YAML the field immediately *after* `Signature` is usually `__Thumbnail` `{C7C26117-...}`, which is cosmetic — writing your signature into that one leaves `Signature` empty and produces exactly the failure above.
+
+## Prefer creating Partial Designs through the Pages UI
+
+A hand-authored Partial Design item can carry the correct template ID, a valid `Signature`, and well-formed `__Renderings` and still **not appear in the Pages "Partial designs" list**, which means editors cannot pick it and it may not participate in the merge. Creating it through **Templates → Partial designs → Create** scaffolds it correctly in one step.
+
+The practical pattern when you are scripting a site: create the Partial Design in the UI, then pull it into serialization (`dotnet sitecore ser pull`) and hand-author its `__Renderings` from there. You get correct scaffolding and a version-controlled item.
+
+## Renderings must be in Available Renderings to be placeable
+
+A Json Rendering that exists under `/sitecore/layout/Renderings/...` and is registered in the rendering host's component map still will not show in the Pages component palette until its GUID is added to the site's Available Renderings item — `/<site>/Presentation/Available Renderings/<name>`, field `Renderings` `{715AE6C0-71C8-4744-AB4F-65362D20AD65}` (newline-delimited GUIDs).
+
+Check `GET /api/editing/config?secret=<editing secret>` on the rendering host to confirm the component is registered on the front-end side; if it is listed there but still missing from the palette, the gap is Available Renderings or its publish.
 
 ## TemplatesMapping encoding (asymmetric double-encoding)
 
@@ -72,7 +107,7 @@ Using the same encoding on both sides (e.g. `%7b...%7d` on the value) silently f
 Two independent levers control where a Partial Design's renderings land on the merged page:
 
 1. **Order of GUIDs in the Page Design's `PartialDesigns` field** controls the default relative ordering of each partial's contributions.
-2. **`s:Parameters` position attributes on each rendering inside the partial's Final Renderings** control where that rendering lands relative to other renderings in the merged tree. Common values:
+2. **`s:Parameters` position attributes on each rendering inside the partial's `__Renderings`** control where that rendering lands relative to other renderings in the merged tree. Common values:
    - `p:before="*"` — place this rendering before all other renderings in the same placeholder
    - `p:after="*"` — place this rendering after all other renderings in the same placeholder
    - `p:after="r[@uid='{RENDERING-UID}']"` — place this rendering immediately after a specific rendering from another partial
@@ -90,15 +125,31 @@ Headless SXA pages expose three canonical top-level placeholders. Target these f
 
 A rendering lands in `headless-main` by default; to pin a rendering to the footer region, set its placeholder to `headless-footer` and use `p:before="*"` to position it above the default footer content.
 
-## Final Renderings device ID
+## Renderings device ID
 
-The standard device GUID used in `__Final Renderings` XML for Headless pages:
+The standard device GUID used in `__Renderings` / `__Final Renderings` XML for Headless pages:
 
 ```
 {FE5D7FDF-89C0-4D99-9AA3-B5FBD009C9F3}
 ```
 
-All rendering `<d>` elements on SitecoreAI Headless SXA sites use this device ID. If you are generating Final Renderings XML programmatically, hardcode this.
+All rendering `<d>` elements on SitecoreAI Headless SXA sites use this device ID. If you are generating that XML programmatically, hardcode this.
+
+A minimal, working Partial Design `__Renderings` value:
+
+```xml
+<r xmlns:p="p" xmlns:s="s" p:p="1">
+  <d id="{FE5D7FDF-89C0-4D99-9AA3-B5FBD009C9F3}">
+    <r uid="{YOUR-UNIQUE-UID}"
+       s:id="{RENDERING-ITEM-ID}"
+       s:ds="{DATASOURCE-ID-OR-local:/Data/Thing}"
+       s:par=""
+       s:ph="headless-main" />
+  </d>
+</r>
+```
+
+Note `s:ph` names the *page* placeholder (`headless-main`), not the `sxa-<signature>` one — the merge does that rewrite for you.
 
 ## Shared sub-page architecture pattern
 
@@ -117,8 +168,34 @@ This keeps chrome (header, footer, shared CTAs) in one editable location while a
 1. Inspect an existing working Page Design and its `TemplatesMapping` value before authoring new ones — the encoding pattern is hard to remember from scratch.
 2. Sketch the `PartialDesigns` chain (header, body partials, footer) before creating items.
 3. Create Partial Designs first, then the Page Design, then the `TemplatesMapping` binding last.
-4. When a rendering does not appear on the page, check in this order: (a) is it on a Partial Design, not the Page Design itself? (b) is that Partial Design listed in `PartialDesigns`? (c) is `TemplatesMapping` encoded correctly? (d) does the rendering target a real headless placeholder key?
+4. When a rendering does not appear on the page, query the merged layout and read the `sig` values before touching anything — it tells you which of the checks below to run. Then check in this order: (a) is it on a Partial Design, not the Page Design itself? (b) does that Partial Design have a non-empty `Signature` (is `sig` `sxa-` in the merged layout)? (c) is that Partial Design listed in `PartialDesigns`, and does the merged `sid` actually match the one you expect? (d) is `TemplatesMapping` encoded correctly? (e) does the rendering target a real headless placeholder key? (f) is the rendering in Available Renderings?
 5. When position is wrong, adjust `p:before` / `p:after` on the rendering in the partial, not the partial order in `PartialDesigns`, for fine-grained control within a single placeholder.
+
+Query the merged layout straight from Edge rather than guessing from the editor:
+
+```
+POST <edge-platform host>/v1/content/api/graphql/v1
+  host:   edge-platform.sitecorecloud.io
+  header: x-sitecore-contextid: <preview or live context id>
+
+query { layout(site:"<site>", routePath:"/Some/Page", language:"en") { item { rendered } } }
+```
+
+Query both context ids. Preview and live are **different** ids and can disagree — a route that resolves under live and returns `null` under preview will 404 on the editing host, which renders against preview.
+
+`sitecore.context.pageDesign.name` tells you whether `TemplatesMapping` resolved; the `placeholders` tree with each component's `params.sid` / `params.sig` tells you whether the partials merged.
+
+## Known issue: a stale merged layout survives publish
+
+Changing a Page Design's `PartialDesigns` field does not reliably re-merge already-published pages. Symptom: the merged layout keeps returning the **old** partial's `sid` even though the CM holds the new value and `ser push`, `publish` and `publish --republish` all report success. Page items themselves are unchanged, so nothing invalidates their cached merge.
+
+If you hit this, verify the CM value first (`ser push --what-if` reporting no change for that item means the CM matches your file), then treat it as a propagation problem rather than re-editing the design. Re-assigning the page design through the Pages UI, or touching the page items so they republish, are the levers worth trying before assuming the mapping is wrong.
+
+## Creating page items by script: set the workflow state
+
+A page template usually carries `__Default workflow` on its Standard Values. Items created by serialization push land in that workflow's **initial** state (commonly Basic Workflow → Draft) and will silently refuse to publish.
+
+Set `__Workflow state` `{3E431DE1-525E-47A3-B6B0-1CCBEC3A8C98}` explicitly on each new page version to the approved state used by the site's existing pages — read it off a working page rather than assuming. Basic Workflow `{B4F49B23-...}` uses Draft `{57CC7DCE-...}` → Approved `{F7FE5BDD-...}`. See `sitecoreai-workflow` for the governance side.
 
 ## Out-of-Scope
 

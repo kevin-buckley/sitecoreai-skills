@@ -49,7 +49,7 @@ To update later:
 ```
 
 Pin to a release instead of tracking `main` with
-`/plugin marketplace add kevin-buckley/sitecoreai-skills@v1.1.1`.
+`/plugin marketplace add kevin-buckley/sitecoreai-skills@v1.2.0`.
 
 ### From a clone
 

@@ -12,7 +12,7 @@
       "source": "./",
       "displayName": "SitecoreAI Skills",
       "description": "26 skills for SitecoreAI: XP migration playbooks, Page Design and Partial Design authoring, and project review audits across templates, content, presentation, Headless SXA, and the Content SDK rendering host.",
-      "version": "1.1.1",
+      "version": "1.2.0",
       "author": {
         "name": "Kevin Buckley"
       },
